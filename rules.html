@@ -1,0 +1,4101 @@
+<!-- =========================
+PART 1/2 — <!DOCTYPE> through </head>
+PASTE THIS FIRST
+========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PAU HANA RP — Rules</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+/* =====================================================
+   COLOR SYSTEM — CHANGE ONCE, UPDATES EVERYTHING
+===================================================== */
+:root{
+  --bg:#05070d;
+  --panel:rgba(10,14,22,.72);
+  --border-soft:rgba(255,255,255,.07);
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+
+  /* Brand */
+  --accent-primary:#ff4fd8;
+  --accent-secondary:#00ff11;
+  --accent-tertiary:#d900ff;
+
+  /* Semantic */
+  --hl-primary:var(--accent-primary);
+  --hl-secondary:var(--accent-secondary);
+  --hl-warning:var(--accent-tertiary);
+
+  /* === RULES PILL (INDEPENDENT) === */
+  --pill-bg:rgba(217,0,255,.15);
+  --pill-border:#d900ff;
+  --pill-text:#d900ff;
+
+  /* === NAV BUTTONS (INDEPENDENT) === */
+  --nav-btn-bg:rgba(255,255,255,.06);
+  --nav-btn-border:rgba(255,255,255,.14);
+  --nav-btn-glow:rgba(255,79,216,.45);
+
+  /* === NOTICE CENTER (INDEPENDENT) === */
+  --notice-bullet:#ff4fd8;
+  --notice-accent:#ff4fd8;
+  --notice-emphasis:#ff1e00;
+  --notice-success:#00ff11;
+  --notice-glow:rgba(255,79,216,.6);
+
+  /* === NOTICE CENTER KEYWORDS (INDEPENDENT) === */
+  --notice-kw-ic:#ff0000;
+  --notice-kw-ooc:#ff0000;
+  --notice-kw-staff:#ff0000;
+  --notice-kw-rules:#ff0000;
+  --notice-kw-promo:#ff0000;
+  --notice-kw-time:#ff0000;
+  --notice-kw-zero:#ff0000;
+
+  /* === PANEL TITLES (INDEPENDENT) === */
+  --panel-title-bg:rgba(255,79,216,.12);
+  --panel-title-border:#ff4fd8;
+  --panel-title-text:#ffffff;
+  --panel-title-glow:rgba(255,79,216,.6);
+
+  /* === NOTICE SIDE TEXT COLORS (INDEPENDENT) === */
+  --notice-side-text:#9ca3af;
+  --notice-side-glow:rgba(255,79,216,.25);
+
+  /* === RULES HERO TEXT (INDEPENDENT) === */
+  --hero-title-color:#ffffff;
+  --hero-title-glow:rgb(255, 79, 217);
+
+  --hero-text-color:#ff0000;
+  --hero-text-glow:rgba(247, 85, 85, 0.76);
+
+  /* === TOC COLORS (INDEPENDENT) === */
+  --toc-title-color:#ff4fd8;
+  --toc-title-glow:rgba(255,79,216,.9);
+
+  --toc-text-color:#cfd3dc;
+  --toc-text-hover:#ff4fd8;
+
+  --toc-active-color:#ff4fd8;
+  --toc-active-glow:rgb(255, 79, 217);
+
+  --toc-indicator:#ff4fd8;
+  --toc-indicator-glow:rgba(255,79,216,.9);
+
+  /* === OOC & IC INTERACTIONS (INDEPENDENT) === */
+  --ooc-title-color:#00ff11;
+  --ooc-title-glow:rgba(0,255,17,.6);
+
+  --ooc-accent:#00ff11;
+  --ooc-accent-glow:rgba(0,255,17,.55);
+
+  --ooc-warning-bg:rgba(255,0,0,.22);
+  --ooc-warning-border:#ff1e00;
+  --ooc-warning-glow:rgba(255,0,0,.35);
+
+  --ooc-card-glow:rgba(0,255,17,.35);
+  --ooc-text:#e5e7eb;
+
+  /* === META GAMING (MATCH CC / NLR) === */
+  --meta-accent:#00ff11;
+  --meta-glow:rgba(0,255,17,.55);
+  --meta-bg:rgba(10,14,22,.72);
+  --meta-border:rgba(0,255,17,.28);
+
+  /* === CHARACTER CREATION (MATCH NLR) === */
+  --cc-accent:#00ff11;
+  --cc-glow:rgba(0,255,17,.55);
+  --cc-bg:rgba(10,14,22,.72);
+  --cc-border:rgba(0,255,17,.28);
+
+  /* === NLR (MATCHES CHARACTER CREATION) === */
+  --nlr-accent:#00ff11;
+  --nlr-glow:rgba(0,255,17,.55);
+  --nlr-bg:rgba(10,14,22,.72);
+  --nlr-border:rgba(0,255,17,.28);
+
+  /* === POWER GAMING (INDEPENDENT) === */
+  --power-accent:#ff1e00;
+  --power-glow:rgba(255,30,0,.55);
+  --power-bg:rgba(10,14,22,.72);
+  --power-border:rgba(255,30,0,.28);
+
+  /* === COMBAT LOGGING (INDEPENDENT) === */
+  --combat-accent:#ffb020;
+  --combat-glow:rgba(255,176,32,.55);
+  --combat-bg:rgba(10,14,22,.72);
+  --combat-border:rgba(255,176,32,.28);
+
+  /* === GUN FEAR (INDEPENDENT) === */
+  --gunfear-accent:#ff4fd8;
+  --gunfear-glow:rgba(255,79,216,.55);
+  --gunfear-bg:rgba(10,14,22,.72);
+  --gunfear-border:rgba(255,79,216,.28);
+
+  /* === COP FEAR (INDEPENDENT) === */
+  --copfear-accent:#00e0ff;
+  --copfear-glow:rgba(0,224,255,.55);
+  --copfear-bg:rgba(10,14,22,.72);
+  --copfear-border:rgba(0,224,255,.28);
+}
+
+/* =====================================================
+   CRIMINAL / COP (NUMBERED ROW PANEL SYSTEM)
+   Matches CC + NLR style
+===================================================== */
+
+/* Independent color controls for this section */
+:root{
+  --cc-accent: var(--accent-secondary);              /* green */
+  --cc-accent-glow: rgba(0,255,17,.65);
+  --cc-panel-bg: rgba(255,255,255,.035);
+  --cc-panel-border: rgba(255,255,255,.07);
+}
+
+/* List wrapper */
+.numbered-rule-list{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  margin-top:18px;
+  padding:0;
+}
+
+/* Each row panel */
+.numbered-rule-list > li{
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+
+  padding:18px 20px;
+  border-radius:16px;
+
+  background:var(--cc-panel-bg);
+  border:1px solid var(--cc-panel-border);
+  line-height:1.65;
+
+  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+/* Hover glow (same vibe as your global policies hover) */
+.numbered-rule-list > li:hover{
+  transform:translateY(-2px);
+  border-color:rgba(0,255,17,.35);
+  box-shadow:
+    0 0 0 1px rgba(0,255,17,.15),
+    0 0 26px rgba(0,255,17,.30),
+    0 0 60px rgba(0,255,17,.18);
+}
+
+/* Number circle */
+.rule-num{
+  flex:0 0 auto;
+  width:28px;
+  height:28px;
+  border-radius:999px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:13px;
+  font-weight:800;
+
+  color:var(--cc-accent);
+  border:1px solid var(--cc-accent);
+  box-shadow:
+    0 0 14px var(--cc-accent-glow),
+    inset 0 0 8px rgba(0,255,17,.30);
+}
+
+/* Sub bullets inside a numbered row */
+.sub-bullets{
+  margin-top:10px;
+  margin-left:18px;
+  list-style:disc;
+  padding-left:14px;
+}
+.sub-bullets li{
+  margin:6px 0;
+  opacity:.95;
+}
+
+/* ===== TOXICITY & RESPECT ===== */
+.toxicity-title{
+  color:#ff4fd8;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  text-shadow:0 0 18px rgba(0,255,17,.55);
+}
+
+.toxicity-subtitle{
+  margin-top:18px;
+  position:relative; /* FIXED: was invalid */
+  color:#00ff11;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.toxicity-text{
+  margin-top:6px;
+  line-height:1.65;
+  color:var(--text);
+}
+
+.toxicity-divider{
+  margin:26px 0;
+  height:1px;
+  background:linear-gradient(
+    to right,
+    transparent,
+    rgba(0,255,17,.35),
+    transparent
+  );
+}
+
+/* ===== ZERO TOLERANCE BLOCKS ===== */
+.zero-block{
+  margin-top:18px;
+  padding:16px 18px;
+  border-radius:14px;
+  background:linear-gradient(
+    180deg,
+    rgba(255,0,0,.14),
+    rgba(120,0,0,.18)
+  );
+  border-left:4px solid #ff1e00;
+  box-shadow:0 0 26px rgba(255,30,0,.35);
+}
+
+.zero-title{
+  color:#ff1e00;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+.zero-text{
+  margin-top:6px;
+  color:#f3f4f6;
+  line-height:1.6;
+}
+
+/* ===== CHARACTER CREATION LIST (MATCHES NLR) ===== */
+.cc-list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:24px;
+}
+
+.cc-item{
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+  padding:18px 22px;
+
+  background:var(--cc-bg);
+  border:1px solid var(--cc-border);
+  border-radius:18px;
+
+  transition:.35s ease;
+}
+
+.cc-item:hover{
+  transform:translateY(-4px);
+  box-shadow:
+    0 0 26px var(--cc-glow),
+    inset 0 0 0 1px var(--cc-accent);
+}
+
+.cc-number{
+  width:34px;
+  height:34px;
+  min-width:34px;
+
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:14px;
+  font-weight:800;
+
+  color:#000;
+  background:var(--cc-accent);
+
+  box-shadow:
+    0 0 14px var(--cc-glow),
+    0 0 30px var(--cc-glow);
+}
+
+.cc-content{
+  line-height:1.6;
+  color:var(--text);
+}
+
+/* === NOTICE SIDE TEXT (INDEPENDENT) === */
+.notice-header{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  margin-bottom:22px;
+}
+
+.notice-side-text{
+  max-width:420px;
+  font-size:13px;
+  line-height:1.5;
+  color:var(--notice-side-text);
+  text-shadow:0 0 12px var(--notice-side-glow);
+}
+
+/* ===== BASE ===== */
+body{
+  font-family:'Orbitron',system-ui,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(900px 500px at 15% 20%, rgba(56,189,248,.18), transparent 60%),
+    radial-gradient(800px 500px at 85% 25%, rgba(236,72,153,.18), transparent 60%),
+    radial-gradient(900px 600px at 50% 85%, rgba(168,85,247,.14), transparent 60%),
+    var(--bg);
+  min-height:100vh;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at center,transparent 55%,rgba(0,0,0,.55));
+  pointer-events:none;
+  z-index:3;
+}
+
+/* ===== NLR / CHARACTER CREATION MATCH ===== */
+.nlr-list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:24px;
+}
+
+.nlr-item{
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+  padding:18px 22px;
+
+  background:var(--nlr-bg);
+  border:1px solid var(--nlr-border);
+  border-radius:18px;
+
+  transition:.35s ease;
+}
+
+.nlr-item:hover{
+  transform:translateY(-4px);
+  box-shadow:
+    0 0 26px var(--nlr-glow),
+    inset 0 0 0 1px var(--nlr-accent);
+}
+
+.nlr-number{
+  width:34px;
+  height:34px;
+  min-width:34px;
+
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:14px;
+  font-weight:800;
+
+  color:#000;
+  background:var(--nlr-accent);
+
+  box-shadow:
+    0 0 14px var(--nlr-glow),
+    0 0 30px var(--nlr-glow);
+}
+
+.nlr-content{
+  line-height:1.6;
+  color:var(--text);
+}
+
+/* ===== META GAMING LIST ===== */
+.meta-list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:24px;
+}
+
+.meta-item{
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+  padding:18px 22px;
+
+  background:var(--meta-bg);
+  border:1px solid var(--meta-border);
+  border-radius:18px;
+
+  transition:.35s ease;
+}
+
+.meta-item:hover{
+  transform:translateY(-4px);
+  box-shadow:
+    0 0 26px var(--meta-glow),
+    inset 0 0 0 1px var(--meta-accent);
+}
+
+.meta-number{
+  width:34px;
+  height:34px;
+  min-width:34px;
+
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:14px;
+  font-weight:800;
+
+  color:#000;
+  background:var(--meta-accent);
+
+  box-shadow:
+    0 0 14px var(--meta-glow),
+    0 0 30px var(--meta-glow);
+}
+
+.meta-content{
+  line-height:1.6;
+  color:var(--text);
+}
+
+/* ===== POWER GAMING LIST ===== */
+.power-list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:24px;
+}
+
+.power-item{
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+  padding:18px 22px;
+
+  background:var(--power-bg);
+  border:1px solid var(--power-border);
+  border-radius:18px;
+
+  transition:.35s ease;
+}
+
+.power-item:hover{
+  transform:translateY(-4px);
+  box-shadow:
+    0 0 26px var(--power-glow),
+    inset 0 0 0 1px var(--power-accent);
+}
+
+.power-number{
+  width:34px;
+  height:34px;
+  min-width:34px;
+
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:14px;
+  font-weight:800;
+
+  color:#000;
+  background:var(--power-accent);
+
+  box-shadow:
+    0 0 14px var(--power-glow),
+    0 0 30px var(--power-glow);
+}
+
+.power-content{
+  line-height:1.6;
+  color:var(--text);
+}
+
+/* ===== COMBAT LOGGING LIST ===== */
+.combat-list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:24px;
+}
+
+.combat-item{
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+  padding:18px 22px;
+
+  background:var(--combat-bg);
+  border:1px solid var(--combat-border);
+  border-radius:18px;
+
+  transition:.35s ease;
+}
+
+.combat-item:hover{
+  transform:translateY(-4px);
+  box-shadow:
+    0 0 26px var(--combat-glow),
+    inset 0 0 0 1px var(--combat-accent);
+}
+
+.combat-number{
+  width:34px;
+  height:34px;
+  min-width:34px;
+
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:14px;
+  font-weight:800;
+
+  color:#000;
+  background:var(--combat-accent);
+
+  box-shadow:
+    0 0 14px var(--combat-glow),
+    0 0 30px var(--combat-glow);
+}
+
+.combat-content{
+  line-height:1.6;
+  color:var(--text);
+}
+
+/* ===== GUN FEAR LIST ===== */
+.gunfear-list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:24px;
+}
+
+.gunfear-item{
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+  padding:18px 22px;
+
+  background:var(--gunfear-bg);
+  border:1px solid var(--gunfear-border);
+  border-radius:18px;
+
+  transition:.35s ease;
+}
+
+.gunfear-item:hover{
+  transform:translateY(-4px);
+  box-shadow:
+    0 0 26px var(--gunfear-glow),
+    inset 0 0 0 1px var(--gunfear-accent);
+}
+
+.gunfear-number{
+  width:34px;
+  height:34px;
+  min-width:34px;
+
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:14px;
+  font-weight:800;
+
+  color:#000;
+  background:var(--gunfear-accent);
+
+  box-shadow:
+    0 0 14px var(--gunfear-glow),
+    0 0 30px var(--gunfear-glow);
+}
+
+.gunfear-content{
+  line-height:1.6;
+  color:var(--text);
+}
+
+/* ===== COP FEAR LIST ===== */
+.copfear-list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:24px;
+}
+
+.copfear-item{
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+  padding:18px 22px;
+
+  background:var(--copfear-bg);
+  border:1px solid var(--copfear-border);
+  border-radius:18px;
+
+  transition:.35s ease;
+}
+
+.copfear-item:hover{
+  transform:translateY(-4px);
+  box-shadow:
+    0 0 26px var(--copfear-glow),
+    inset 0 0 0 1px var(--copfear-accent);
+}
+
+.copfear-number{
+  width:34px;
+  height:34px;
+  min-width:34px;
+
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:14px;
+  font-weight:800;
+
+  color:#000;
+  background:var(--copfear-accent);
+
+  box-shadow:
+    0 0 14px var(--copfear-glow),
+    0 0 30px var(--copfear-glow);
+}
+
+.copfear-content{
+  line-height:1.6;
+  color:var(--text);
+}
+
+/* ===== GREEN ZONES ===== */
+.green-zone-block{
+  border:1px solid rgba(0,255,100,.35);
+  box-shadow:0 0 40px rgba(0,255,100,.12);
+}
+
+.green-zone-title{
+  color:#00ff66;
+  border:1px solid rgba(0,255,100,.6);
+  background:rgba(0,255,100,.12);
+  box-shadow:0 0 22px rgba(0,255,100,.6);
+}
+
+.green-zone-rules ul{
+  list-style:disc;
+  padding-left:20px;
+  margin-top:12px;
+}
+.green-zone-rules li{
+  margin-bottom:10px;
+  line-height:1.6;
+}
+
+/* Subtitle */
+.green-zone-subtitle{
+  margin-top:32px;
+  margin-bottom:14px;
+  font-size:18px;
+  color:#00ff66;
+  text-shadow:0 0 14px rgba(0,255,100,.6);
+}
+
+/* Grid */
+.green-zone-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:22px;
+}
+
+/* Cards */
+.green-zone-card{
+  background:rgba(0,0,0,.45);
+  border:1px solid rgba(0,255,100,.35);
+  border-radius:14px;
+  padding:14px;
+  text-align:center;
+  transition:.35s;
+}
+
+.green-zone-card img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:10px;
+  transition:transform .35s ease;
+}
+
+.green-zone-card span{
+  display:block;
+  font-weight:600;
+  color:#00ff66;
+  text-shadow:0 0 12px rgba(0,255,100,.6);
+}
+
+/* Hover Glow + zoom */
+.green-zone-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 0 35px rgba(0,255,100,.65);
+}
+.green-zone-card:hover img{
+  transform:scale(1.08);
+}
+
+/* ===== RED ZONE LIGHTBOX THEME ===== */
+.green-lightbox.red-theme .green-lightbox-content{
+  background:rgba(12,5,5,.88);
+  border:1px solid rgba(255,0,0,.45);
+
+  box-shadow:
+    0 0 45px rgba(255,0,0,.55),
+    inset 0 0 30px rgba(255,0,0,.18);
+}
+
+.green-lightbox.red-theme .green-lightbox-title{
+  color:#ff1e00;
+  text-shadow:0 0 18px rgba(255,0,0,.95);
+}
+
+.green-lightbox.red-theme .green-lightbox-labels{
+  color:#ff3b3b;
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,0,0,.45);
+
+  box-shadow:
+    0 0 22px rgba(255,0,0,.75),
+    inset 0 0 14px rgba(255,0,0,.35);
+
+  text-shadow:0 0 14px rgba(255,0,0,.9);
+}
+
+.green-lightbox.red-theme .green-lightbox-close{
+  color:#ff1e00;
+  text-shadow:0 0 14px rgba(255,0,0,.95);
+}
+
+/* =====================================================
+   RED ZONES — MATCH GREEN ZONES (DANGER VARIANT)
+===================================================== */
+.red-zone-block{
+  border:1px solid rgba(255,0,0,.35);
+  box-shadow:0 0 40px rgba(255,0,0,.18);
+}
+
+.red-zone-title{
+  color:#ff1e00;
+  border:1px solid rgba(255,30,0,.6);
+  background:rgba(255,0,0,.12);
+  box-shadow:0 0 22px rgba(255,0,0,.6);
+}
+
+.red-zone-subtitle{
+  margin-top:32px;
+  margin-bottom:14px;
+  font-size:18px;
+  color:#ff1e00;
+  text-shadow:0 0 14px rgba(255,0,0,.7);
+}
+
+.red-zone-rules ul{
+  list-style:disc;
+  padding-left:20px;
+  margin-top:12px;
+}
+.red-zone-rules li{
+  margin-bottom:10px;
+  line-height:1.6;
+}
+
+/* Grid matches Green Zones */
+.red-zone-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:22px;
+}
+
+/* Cards */
+.red-zone-card{
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,0,0,.35);
+  border-radius:14px;
+  padding:14px;
+  text-align:center;
+  cursor:pointer;
+  transition:.35s ease;
+}
+
+.red-zone-card img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:10px;
+  transition:transform .35s ease;
+}
+
+.red-zone-card span{
+  display:block;
+  font-weight:600;
+  color:#ff1e00;
+  text-shadow:0 0 12px rgba(255,0,0,.7);
+}
+
+/* Hover behavior */
+.red-zone-card:hover{
+  transform:translateY(-4px);
+  box-shadow:
+    0 0 30px rgba(255,0,0,.65),
+    0 0 60px rgba(255,0,0,.35);
+}
+
+.red-zone-card:hover img{
+  transform:scale(1.08);
+}
+
+/* ===== FIXED LOGO ===== */
+.bg-logo{
+  position:fixed;
+  inset:0;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+.bg-logo img{
+  width:420px;
+  opacity:.045;
+  filter:
+    drop-shadow(0 0 60px rgba(255,79,216,.25))
+    drop-shadow(0 0 120px rgba(56,189,248,.18));
+}
+
+/* ===== NAV (GLOBAL — MATCHES STAFF PAGE) ===== */
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(12px);
+  background:rgba(6,7,11,.75);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 32px;
+}
+
+.nav-left,
+.nav-right{
+  display:flex;
+  align-items:center;
+}
+
+.nav-left{ gap:24px; }
+.nav-right{ gap:14px; }
+
+/* Links */
+.nav-link{
+  position:relative;
+  font-size:15.5px;
+  font-weight:600;
+  letter-spacing:.04em;
+  padding:.5rem .75rem;
+  color:#ffffff;
+  opacity:.85;
+  text-decoration:none;
+  transition:.2s ease;
+}
+
+.nav-link:hover,
+.nav-active{
+  opacity:1;
+}
+
+.nav-link:hover{
+  color:var(--accent-primary);
+  transform:translateY(-2px);
+  text-shadow:
+    0 0 8px rgba(255,79,216,.9),
+    0 0 18px rgba(255,79,216,.8),
+    0 0 32px rgba(168,85,247,.7);
+}
+
+.nav-link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:2px;
+  background:var(--accent-primary);
+  box-shadow:0 0 12px var(--accent-primary);
+  transition:width .3s ease;
+}
+
+.nav-link:hover::after,
+.nav-active::after{
+  width:100%;
+}
+
+.nav-active{
+  color:var(--accent-primary);
+}
+
+/* Buttons */
+.nav-btn{
+  padding:10px 18px;
+  border-radius:10px;
+  font-size:13.5px;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:#fff;
+  text-decoration:none;
+
+  background:linear-gradient(
+    135deg,
+    rgba(56,189,248,.25),
+    rgba(236,72,153,.25),
+    rgba(255,79,216,.25)
+  );
+
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 0 28px rgba(236,72,153,.45);
+  transition:.25s ease;
+}
+
+.nav-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 45px rgba(236,72,153,.65);
+}
+
+/* ===== RULES HERO ===== */
+.rules-hero{
+  text-align:center;
+  padding:44px 24px 24px;
+}
+.rules-pill{
+  display:inline-block;
+  padding:10px 26px;
+  border-radius:999px;
+  font-size:13px;
+  letter-spacing:.22em;
+  color:var(--pill-text);
+  background:var(--pill-bg);
+  border:1px solid var(--pill-border);
+  box-shadow:0 0 22px rgba(217,0,255,.65);
+}
+.rules-hero h1{
+  margin-top:18px;
+  font-size:32px;
+  font-weight:800;
+}
+.rules-hero p{
+  max-width:760px;
+  margin:14px auto 0;
+  color:var(--muted);
+  line-height:1.6;
+}
+/* === HERO TEXT STYLING === */
+.rules-hero h1{
+  color:var(--hero-title-color);
+  text-shadow:0 0 24px var(--hero-title-glow);
+}
+
+.rules-hero p{
+  color:var(--hero-text-color);
+  text-shadow:0 0 18px var(--hero-text-glow);
+}
+
+/* ===== LAYOUT ===== */
+.page{
+  position:relative;
+  z-index:10;
+  max-width:1400px;
+  margin:0 auto;
+  padding:32px 32px 96px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 320px;
+  gap:64px;
+}
+@media(max-width:1024px){
+  .grid{grid-template-columns:1fr;}
+}
+
+/* ===== RULE BLOCK ===== */
+.rule-block{
+  background:var(--panel);
+  border:1px solid var(--border-soft);
+  border-radius:20px;
+  padding:26px;
+  margin-top:48px;
+  position:relative;
+}
+.rule-block h2{
+  display:inline-block;
+  padding:8px 20px;
+  margin-bottom:18px;
+
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+
+  color:var(--panel-title-text);
+  background:var(--panel-title-bg);
+  border:1px solid var(--panel-title-border);
+  border-radius:999px;
+
+  box-shadow:0 0 18px var(--panel-title-glow);
+}
+
+/* ===== NOTICE LIST (DEDICATED) ===== */
+.rule-list{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.rule-list li{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+
+  padding:16px 18px;
+  border-radius:14px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  line-height:1.55;
+}
+.rule-list li::before{
+  content:"";
+  flex:0 0 auto;
+  margin-top:6px;
+
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--notice-bullet);
+  box-shadow:0 0 14px var(--notice-glow);
+}
+
+/* ===== NOTICE TEXT ===== */
+.notice-accent{color:var(--notice-accent);font-weight:600;}
+.notice-emphasis{color:var(--notice-emphasis);font-weight:600;}
+.notice-success{color:var(--notice-success);font-weight:600;}
+
+/* ===== NOTICE KEYWORDS (COLOR ACCESS) ===== */
+.notice-kw-ic{color:var(--notice-kw-ic);font-weight:600;}
+.notice-kw-ooc{color:var(--notice-kw-ooc);font-weight:600;}
+.notice-kw-staff{color:var(--notice-kw-staff);font-weight:600;}
+.notice-kw-rules{color:var(--notice-kw-rules);font-weight:600;}
+.notice-kw-promo{color:var(--notice-kw-promo);font-weight:600;}
+.notice-kw-time{color:var(--notice-kw-time);font-weight:600;}
+.notice-kw-zero{color:var(--notice-kw-zero);font-weight:600;}
+
+/* ===== TABLE OF CONTENTS (DEDUPED: single definition) ===== */
+.toc{
+  position: sticky;
+  top: 120px;
+  align-self: flex-start;
+
+  background: transparent;
+  padding-left: 18px;
+
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity .6s, transform .6s;
+}
+
+.toc.visible{
+  opacity: 1;
+  transform: none;
+}
+
+/* TOC TITLE */
+.toc-title{
+  font-size:12px;
+  letter-spacing:.2em;
+  color:var(--hl-secondary);
+  margin-bottom:14px;
+  text-transform:uppercase;
+}
+
+/* TOC LINKS */
+.toc a{
+  display:block;
+  position:relative;
+
+  padding:8px 10px 8px 18px;
+  font-size:12.5px;
+
+  color:#fff;
+  opacity:.55;
+
+  transition:.25s ease;
+}
+.toc a:hover{
+  opacity:.8;
+}
+
+/* ACTIVE LINK */
+.toc a.active{
+  opacity:1;
+  color:var(--hl-primary);
+  text-shadow:
+    0 0 8px var(--hl-primary),
+    0 0 18px rgba(255,79,216,.75),
+    0 0 32px rgba(255,79,216,.55);
+}
+.toc a.active::before{
+  content:"";
+  position:absolute;
+  inset:2px 6px;
+  border-radius:8px;
+
+  background:rgba(255,79,216,.08);
+  box-shadow:0 0 28px rgba(255,79,216,.35);
+
+  z-index:-1;
+}
+
+/* SCROLL INDICATOR */
+.toc-indicator{
+  position:absolute;
+  left:8px;
+
+  width:3px;
+  height:20px;
+  border-radius:99px;
+
+  background:var(--hl-primary);
+  box-shadow:
+    0 0 12px var(--hl-primary),
+    0 0 28px rgba(255,79,216,.75);
+
+  transition:top .35s ease;
+}
+
+/* ===== GLOBAL POLICIES GRID ===== */
+.policies-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:26px;
+  margin-top:28px;
+}
+
+@media(max-width:1100px){
+  .policies-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+@media(max-width:700px){
+  .policies-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+.policy-card{
+  position:relative;
+  background:rgba(10,14,22,.78);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:22px 22px 22px 26px;
+  line-height:1.55;
+}
+
+.policy-card::before{
+  content:"";
+  position:absolute;
+  left:12px;
+  top:18px;
+  bottom:18px;
+  width:4px;
+  border-radius:99px;
+  background:var(--accent-secondary);
+  box-shadow:0 0 18px rgba(0,255,17,.65);
+}
+
+.policy-card h3{
+  margin-bottom:10px;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.04em;
+  color:#fff;
+}
+
+.policy-card p{
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* ===== GLOBAL POLICIES CARD HOVER ===== */
+.policies-grid > div{
+  position:relative;
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease,
+    background .35s ease;
+}
+
+/* NOTE: Keep your existing hover vars if defined elsewhere */
+.policies-grid > div:hover{
+  transform:translateY(-6px);
+  box-shadow:
+    0 0 35px rgba(0,255,17,.25),
+    inset 0 0 18px rgba(0,255,17,.12);
+}
+
+/* === OOC & IC INTERACTIONS === */
+.ooc-title{
+  color:var(--ooc-title-color);
+  font-size:26px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-shadow:0 0 22px var(--ooc-title-glow);
+}
+
+.ooc-desc{
+  max-width:900px;
+  margin:10px 0 26px;
+  color:var(--ooc-text);
+  line-height:1.6;
+}
+
+/* RED WARNING BAR */
+.ooc-warning{
+  background:linear-gradient(
+    90deg,
+    var(--ooc-warning-bg),
+    rgba(0,0,0,.15)
+  );
+  border-left:4px solid var(--ooc-warning-border);
+  padding:16px 18px;
+  border-radius:12px;
+  margin-bottom:28px;
+  box-shadow:0 0 24px var(--ooc-warning-glow);
+}
+
+/* TWO COLUMN PANELS */
+.ooc-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:26px;
+  margin-bottom:36px;
+}
+
+.ooc-card{
+  background:var(--panel);
+  border:1px solid var(--border-soft);
+  border-radius:18px;
+  padding:20px 22px;
+  position:relative;
+  transition:.35s ease;
+}
+
+.ooc-card::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:16px;
+  bottom:16px;
+  width:4px;
+  border-radius:99px;
+  background:var(--ooc-accent);
+  box-shadow:0 0 18px var(--ooc-accent-glow);
+}
+
+/* HOVER GLOW */
+.ooc-card:hover{
+  transform:translateY(-6px);
+  box-shadow:
+    0 0 28px var(--ooc-card-glow),
+    inset 0 0 22px rgba(0,255,17,.08);
+}
+
+.ooc-card h4{
+  color:var(--ooc-accent);
+  font-size:16px;
+  letter-spacing:.12em;
+  margin-bottom:12px;
+}
+
+.ooc-card ul{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.ooc-card li{
+  position:relative;
+  padding-left:18px;
+}
+
+.ooc-card li::before{
+  content:"•";
+  position:absolute;
+  left:0;
+  color:var(--ooc-accent);
+}
+
+/* CHARACTER BOUNDARIES */
+.ooc-subtitle{
+  color:var(--ooc-accent);
+  font-size:18px;
+  margin:28px 0 12px;
+  letter-spacing:.1em;
+}
+
+.ooc-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.ooc-list li{
+  position:relative;
+  padding-left:18px;
+}
+
+.ooc-list li::before{
+  content:"•";
+  position:absolute;
+  left:0;
+  color:var(--ooc-accent);
+}
+
+/* ===== GREEN ZONE LIGHTBOX ===== */
+.green-lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.green-lightbox.active{
+  display:flex;
+}
+
+.green-lightbox-content{
+  max-width:92vw;
+  max-height:92vh;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+
+  padding:20px;
+  border-radius:18px;
+
+  background:rgba(5,10,7,.85);
+  border:1px solid rgba(0,255,100,.35);
+
+  box-shadow:
+    0 0 40px rgba(0,255,100,.45),
+    inset 0 0 30px rgba(0,255,100,.15);
+}
+
+/* ===== REPORTS CORE CARDS ===== */
+
+.reports-core-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;
+  margin-top:24px;
+}
+
+.reports-core-card{
+  padding:22px 24px;
+  border-radius:18px;
+  background:rgba(10,14,22,.85);
+  border:1px solid rgba(255,255,255,.08);
+  transition:.35s ease;
+}
+
+.reports-core-card h4{
+  margin-bottom:10px;
+  font-size:14px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.reports-core-card p{
+  font-size:13.5px;
+  line-height:1.6;
+  color:#e5e7eb;
+}
+
+.reports-core-card.green{
+  border-color:rgba(0,255,17,.45);
+  box-shadow:0 0 22px rgba(0,255,17,.25);
+}
+.reports-core-card.green h4{
+  color:#00ff11;
+  text-shadow:0 0 12px rgba(0,255,17,.9);
+}
+
+.reports-core-card.blue{
+  border-color:rgba(0,224,255,.45);
+  box-shadow:0 0 22px rgba(0,224,255,.25);
+}
+.reports-core-card.blue h4{
+  color:#00e0ff;
+  text-shadow:0 0 12px rgba(0,224,255,.9);
+}
+
+/* ===== WARNING / CS CARDS ===== */
+
+.reports-warning-title{
+  margin-top:42px;
+  margin-bottom:18px;
+  font-size:18px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#ff1e00;
+  text-shadow:0 0 18px rgba(255,30,0,.9);
+}
+
+.reports-warning-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;
+}
+
+.reports-warning-card{
+  position:relative;
+  padding:22px 24px;
+  border-radius:18px;
+  background:rgba(10,10,14,.88);
+  border:1px solid rgba(255,255,255,.08);
+  transition:.35s ease;
+}
+
+.reports-warning-card h4{
+  margin-bottom:10px;
+  font-size:15px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.reports-warning-card p{
+  font-size:13.5px;
+  line-height:1.6;
+  color:#e5e7eb;
+}
+
+.cs-tag{
+  display:inline-block;
+  margin-top:14px;
+  padding:6px 16px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+}
+
+/* RED — HARD CS */
+.reports-warning-card.danger{
+  border-color:rgba(255,0,0,.5);
+  box-shadow:0 0 28px rgba(255,0,0,.25);
+}
+.reports-warning-card.danger h4{
+  color:#ff1e00;
+  text-shadow:0 0 14px rgba(255,0,0,.9);
+}
+.reports-warning-card.danger .cs-tag{
+  color:#ff1e00;
+  border:1px solid rgba(255,0,0,.6);
+  box-shadow:0 0 16px rgba(255,0,0,.75);
+}
+.reports-warning-card.danger:hover{
+  transform:translateY(-6px);
+  box-shadow:
+    0 0 40px rgba(255,0,0,.75),
+    0 0 80px rgba(255,0,0,.45);
+}
+
+/* ORANGE — WARNING */
+.reports-warning-card.warning{
+  border-color:rgba(255, 32, 32, 0.5);
+  box-shadow:0 0 28px rgba(255, 32, 32, 0.25);
+}
+.reports-warning-card.warning h4{
+  color:#ff1e00;
+  text-shadow:0 0 14px rgba(255, 32, 32, 0.9);
+}
+.reports-warning-card.warning .cs-tag{
+  color:#ff1e00;
+  border:1px solid rgba(255, 32, 32, 0.6);
+  box-shadow:0 0 16px rgba(255, 32, 32, 0.75);
+}
+.reports-warning-card.warning:hover{
+  transform:translateY(-6px);
+  box-shadow:
+    0 0 40px rgba(255, 32, 32, 0.75),
+    0 0 80px rgba(255, 32, 32, 0.45);
+}
+
+/* ===== WARNING SYSTEM ===== */
+
+.warning-system-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+  margin-top:28px;
+}
+
+.warning-card{
+  position:relative;
+  padding:22px 24px;
+  border-radius:18px;
+  background:rgba(8,10,16,.9);
+  border:1px solid rgba(255,255,255,.08);
+  transition:.35s ease;
+}
+
+/* ===== TITLE (TEXT ONLY – NO BOX) ===== */
+.warning-card h4{
+  margin-bottom:10px;
+  font-size:15px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:800;
+
+  background:none !important;
+  border:none !important;
+  padding:0 !important;
+  box-shadow:none !important;
+}
+
+/* ===== BODY TEXT ===== */
+.warning-card p{
+  font-size:13.5px;
+  line-height:1.6;
+  color:#e5e7eb;
+}
+
+/* ===== PUNISHMENT (TEXT ONLY – NO PILL) ===== */
+.warning-card .punishment{
+  display:block;
+  margin-top:12px;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  opacity:.9;
+
+  background:none !important;
+  border:none !important;
+  padding:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+
+/* ===== LEVEL COLORS ===== */
+
+/* LEVEL 1 — GREEN */
+.level-1{
+  border-color:rgba(0,255,17,.45);
+  box-shadow:0 0 22px rgba(0,255,17,.25);
+}
+.level-1 h4,
+.level-1 .punishment{
+  color:#00ff11;
+  text-shadow:0 0 14px rgba(0,255,17,.6);
+}
+
+/* LEVEL 2 — CYAN */
+.level-2{
+  border-color:rgba(0,224,255,.45);
+  box-shadow:0 0 22px rgba(0,224,255,.25);
+}
+.level-2 h4,
+.level-2 .punishment{
+  color:#00e0ff;
+  text-shadow:0 0 14px rgba(0,224,255,.6);
+}
+
+/* LEVEL 3 — YELLOW */
+.level-3{
+  border-color:rgba(255,176,32,.5);
+  box-shadow:0 0 24px rgba(255,176,32,.3);
+}
+.level-3 h4,
+.level-3 .punishment{
+  color:#ffb020;
+  text-shadow:0 0 16px rgba(255,176,32,.7);
+}
+
+/* LEVEL 4 — ORANGE */
+.level-4{
+  border-color:rgba(255,120,0,.55);
+  box-shadow:0 0 26px rgba(255,120,0,.35);
+}
+.level-4 h4,
+.level-4 .punishment{
+  color:#ff7a00;
+  text-shadow:0 0 18px rgba(255,120,0,.75);
+}
+
+/* LEVEL 5 — RED */
+.level-5{
+  border-color:rgba(255,30,0,.6);
+  box-shadow:0 0 30px rgba(255,30,0,.45);
+}
+.level-5 h4,
+.level-5 .punishment{
+  color:#ff1e00;
+  text-shadow:0 0 20px rgba(255,30,0,.8);
+}
+
+/* LEVEL 6 — DARK RED */
+.level-6{
+  border-color:rgba(180,0,0,.7);
+  box-shadow:0 0 36px rgba(180,0,0,.6);
+}
+.level-6 h4,
+.level-6 .punishment{
+  color:#b00000;
+  text-shadow:0 0 22px rgba(180,0,0,.9);
+}
+
+/* HOVER EFFECT */
+.warning-card:hover{
+  transform:translateY(-6px);
+}
+.warning-card:hover{
+  box-shadow:
+    0 0 40px currentColor,
+    0 0 80px rgba(255,255,255,.05);
+}
+
+/* ===== SOP ACCORDION ===== */
+
+.sop-accordion{
+  margin-top:28px;
+  display:grid;
+  gap:16px;
+}
+
+.sop-item{
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  background:rgba(8,10,16,.85);
+  border:1px solid rgba(255,255,255,.08);
+  transition:box-shadow .35s ease, border-color .35s ease, transform .25s ease;
+}
+
+/* 🔥 HOVER GLOW */
+.sop-item:hover{
+  border-color:rgba(255,0,204,.55);
+  box-shadow:
+    0 0 18px rgba(255,0,204,.35),
+    inset 0 0 12px rgba(255,0,204,.15);
+  transform:translateY(-2px);
+}
+
+.sop-toggle{
+  width:100%;
+  padding:16px 20px;
+  background:none;
+  border:none;
+  color:#ff00cc;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  text-shadow:0 0 12px rgba(255,0,204,.6);
+}
+
+.sop-toggle:hover{
+  background:rgba(255,0,204,.08);
+}
+
+.sop-icon{
+  font-size:18px;
+  transition:.3s ease;
+}
+
+.sop-item.active .sop-icon{
+  transform:rotate(45deg);
+}
+
+/* ACTIVE OPEN GLOW */
+.sop-item.active{
+  border-color:rgba(0,255,17,.55);
+  box-shadow:
+    0 0 22px rgba(0,255,17,.35),
+    inset 0 0 14px rgba(0,255,17,.18);
+}
+
+.sop-content{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .4s ease;
+}
+
+.sop-item.active .sop-content{
+  max-height:500px;
+}
+
+.sop-content ul{
+  padding:16px 24px 22px;
+  display:grid;
+  gap:10px;
+}
+
+.sop-content li{
+  position:relative;
+  padding-left:16px;
+  color:#e5e7eb;
+  line-height:1.6;
+}
+
+.sop-content li::before{
+  content:"▸";
+  position:absolute;
+  left:0;
+  color:#00ff11;
+  text-shadow:0 0 8px rgba(0,255,17,.6);
+}
+
+/* SOP NOTICE */
+.sop-notice{
+  margin-top:26px;
+  padding:16px 18px;
+  border-radius:14px;
+  background:rgba(10,12,20,.85);
+  border:1px solid rgba(255,0,0,.45);
+  color:#ffb4b4;
+  font-size:13.5px;
+  text-shadow:0 0 10px rgba(255,0,0,.45);
+}
+
+/* IMAGE HOLDER — NO CROP */
+.green-lightbox-media{
+  max-width:100%;
+  max-height:65vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.green-lightbox-media img{
+  max-width:100%;
+  max-height:65vh;
+  object-fit:contain;
+  border-radius:12px;
+}
+
+/* TITLE */
+.green-lightbox-title{
+  font-size:18px;
+  font-weight:700;
+  color:#00ff66;
+  text-shadow:0 0 14px rgba(0,255,100,.9);
+}
+
+/* LABELS (THIS FIXES YOUR ISSUE) */
+.green-lightbox-labels{
+  width:100%;
+  text-align:center;
+
+  padding:10px 14px;
+  border-radius:12px;
+
+  font-size:14px;
+  letter-spacing:.05em;
+  line-height:1.4;
+
+  color:#00ff66;
+
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(0,255,100,.4);
+
+  box-shadow:
+    0 0 18px rgba(0,255,100,.6),
+    inset 0 0 12px rgba(0,255,100,.25);
+
+  text-shadow:0 0 10px rgba(0,255,100,.9);
+}
+
+/* CLOSE BUTTON */
+.green-lightbox-close{
+  position:absolute;
+  top:16px;
+  right:20px;
+
+  font-size:22px;
+  color:#00ff66;
+  cursor:pointer;
+
+  text-shadow:0 0 12px rgba(0,255,100,.9);
+}
+
+/* Cursor cue */
+.green-zone-card.clickable{
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+  <div id="greenLightbox" class="green-lightbox">
+    <div class="green-lightbox-content">
+
+      <span class="green-lightbox-close">✕</span>
+
+      <div class="green-lightbox-media">
+        <img id="greenLightboxImg" />
+      </div>
+
+      <div id="greenLightboxTitle" class="green-lightbox-title"></div>
+      <div id="greenLightboxLabels" class="green-lightbox-labels"></div>
+
+    </div>
+  </div>
+
+  <div class="bg-logo">
+    <img src="./assets/pauhana-logo.png">
+  </div>
+
+  <header>
+    <nav>
+  <div class="nav-left">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="rules.html" class="nav-link nav-active">Rules</a>
+    <a href="apply.html" class="nav-link">Apply</a>
+    <a href="staff.html" class="nav-link">Staff</a>
+    <a href="changelog.html" class="nav-link">Changelog</a>
+  </div>
+  <div class="nav-right">
+    <a href="https://discord.gg/pauhanarp"
+       class="nav-btn"
+       target="_blank"
+       rel="noopener noreferrer">
+      Discord
+    </a>
+    <a href="https://pauhanarp.tebex.io"
+       class="nav-btn"
+       target="_blank"
+       rel="noopener noreferrer">
+      Tebex
+    </a>
+  </div>
+</nav>
+  </header>
+
+  <section class="rules-hero">
+    <span class="rules-pill">RULES</span>
+    <h1>PAU HANA RP — Server Guidelines</h1>
+    <p>
+      These rules exist to keep roleplay
+      <span class="hl-primary">immersive</span>,
+      <span class="hl-secondary">fair</span>,
+      and <span class="hl-primary">enjoyable</span> for everyone.
+    </p>
+  </section>
+
+  <div class="page">
+    <div class="grid">
+
+      <main>
+
+        <section id="notice" class="rule-block">
+          <div class="notice-header">
+            <h2>Notice Center</h2>
+
+            <div class="notice-side-text">
+              Stay ahead of the rulebook. Your knowledge and professionalism directly
+              affect outcomes in tickets and penalties.
+            </div>
+          </div>
+
+          <ul class="rule-list">
+            <li>
+              <div>
+                <span class="notice-accent">Accountability matters.</span>
+                Actions taken both <span class="notice-kw-ic">IC</span> and <span class="notice-kw-ooc">OOC</span> are considered when
+                <span class="notice-kw-staff">STAFF</span> review situations and make decisions.
+              </div>
+            </li>
+
+            <li>
+              <div>
+                <span class="notice-accent">Rule awareness is expected.</span>
+                Players are responsible for knowing the <span class="notice-kw-rules">RULES</span> — not being aware of one does
+                <span class="notice-emphasis">NOT EXCUSE A VIOLATION</span>.
+              </div>
+            </li>
+
+            <li>
+              <div>
+                <span class="notice-accent">Communication comes first.</span>
+                <span class="notice-kw-staff">STAFF</span> will always aim to explain and clarify, but enforcement will be applied when needed to maintain roleplay quality.
+              </div>
+            </li>
+
+            <li>
+              <div>
+                <span class="notice-accent">No outside promotion.</span>
+                Advertising or directing players to other servers or communities is
+                <span class="notice-kw-promo">NOT ALLOWED</span>.
+              </div>
+            </li>
+
+            <li>
+              <div>
+                <span class="notice-accent">Reports must be timely.</span>
+                Incidents should be reported within
+                <span class="notice-kw-time">24 hours</span>
+                to be considered.
+              </div>
+            </li>
+
+            <li>
+              <div>
+                <span class="notice-accent">Zero-tolerance content.</span>
+                Content involving explicit material, self-harm, or extremist themes is
+                <span class="notice-kw-zero notice-emphasis">STRICTLY PROHIBITED</span>
+                and may result in immediate action.
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- NOTE: Your remaining sections continue exactly as you pasted them.
+             I kept all wording literal; only the Green Zones card markup + JS were fixed and duplicates removed. -->
+
+        <!-- GLOBAL POLICIES -->
+        <section id="global-policies" class="rule-block">
+          <h2>Global Policies - Server Rules</h2>
+
+          <div class="policies-grid">
+            <div class="policy-card">
+              <h3>Use of Clips & Footage</h3>
+              <p>
+                We do not allow players to submit footage that is not their own unless
+                permission is granted by the original creator. This includes livestream
+                clips, recordings, or third-party platforms. This policy prevents
+                harassment and meta-gaming.
+              </p>
+            </div>
+
+            <div class="policy-card">
+              <h3>Staff Authority & Burden of Proof</h3>
+              <p>
+                <span class="notice-kw-staff">Staff</span> reserve the right to punish rule
+                violations. It is your responsibility to provide evidence when making
+                claims. Saying “<span class="notice-success">just check the logs</span>”
+                is not valid proof.
+              </p>
+            </div>
+
+            <div class="policy-card">
+              <h3>Handling RP Rule Breaks</h3>
+              <p>
+                If a rule is broken in RP, staff appreciate when players handle the
+                situation discreetly. This helps preserve immersion and prevents
+                unnecessary escalation.
+              </p>
+            </div>
+
+            <div class="policy-card">
+              <h3>Files, Purchases & Ownership</h3>
+              <p>
+                Any file or purchase provided to the city is permanently released.
+                Purchases remain with the buyer unless they are
+                <span class="notice-success">key-master files</span>. Disbanded
+                organizations forfeit ownership.
+              </p>
+            </div>
+
+            <div class="policy-card">
+              <h3>1-of-1 Items & Inactivity</h3>
+              <p>
+                Any 1-of-1 item is forfeited if the owner is banned or inactive for
+                120+ days without an approved LOA. Items may be released back into the
+                community.
+              </p>
+            </div>
+
+            <div class="policy-card">
+              <h3>Meaningful RP Before Lethal Force</h3>
+              <p>
+                Before using lethal force, at least
+                <span class="notice-success">one full minute</span>
+                of meaningful roleplay must occur. Clear escalation and justification
+                are required. Random violence is considered Fail RP.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- TOXICITY -->
+        <section id="toxicity" class="rule-block">
+          <h2 class="toxicity-title">Toxicity & Respect</h2>
+
+          <p class="toxicity-text">
+            Pau Hana RP is an inclusive community built on respect, fairness, and
+            mature roleplay. These expectations exist to ensure a safe, fair, and
+            immersive environment for everyone.
+          </p>
+
+          <div class="toxicity-divider"></div>
+
+          <div class="toxicity-subtitle">Respect Toward Others</div>
+          <p class="toxicity-text">
+            You must remain respectful toward all players and administrators at all
+            times — both in the city and in Discord. Pau Hana RP includes people from
+            many cultures, beliefs, and backgrounds. Respect is required in every
+            interaction, with no exceptions.
+          </p>
+
+          <div class="toxicity-divider"></div>
+
+          <div class="toxicity-subtitle">Prohibited Slurs & Terms</div>
+          <p class="toxicity-text">
+            Pau Hana RP does <strong>NOT</strong> allow the use of sexist, racist,
+            homophobic, or transphobic language. Additionally, no terms targeting
+            individuals with disabilities or special needs are permitted.
+            Violations will result in disciplinary action.
+          </p>
+
+          <div class="toxicity-divider"></div>
+
+          <div class="toxicity-subtitle">Sexually Derogatory Language</div>
+          <p class="toxicity-text">
+            There is a zero-tolerance policy for sexually demeaning or derogatory
+            language aimed at any sex. This includes words such as
+            “whore”, “slut”, or similar phrases — whether used jokingly,
+            casually, or in character.
+          </p>
+
+          <p class="toxicity-text">
+            Violations result in a minimum of
+            <span class="notice-success">250 Community Service</span>.
+            Know your audience.
+          </p>
+
+          <div class="toxicity-divider"></div>
+
+          <div class="toxicity-subtitle">Harassment in Roleplay</div>
+          <p class="toxicity-text">
+            Harassment includes any behavior that makes another participant feel
+            uncomfortable, threatened, intimidated, or disrespected. This applies
+            to both verbal interactions and in-character actions.
+          </p>
+
+          <div class="zero-block">
+            <div class="zero-title">Rape RP Is Strictly Forbidden</div>
+            <div class="zero-text">
+              Rape RP is never allowed — including jokes, threats, implications,
+              or scenes involving sexual violence.
+            </div>
+          </div>
+
+          <div class="zero-block">
+            <div class="zero-title">Suicide RP Restrictions</div>
+            <div class="zero-text">
+              Suicide RP is not allowed unless it is part of a voluntary, final
+              permanent kill of your own character. No other forms are permitted.
+            </div>
+          </div>
+
+          <div class="zero-block">
+            <div class="zero-title">Pregnancy RP Not Allowed</div>
+            <div class="zero-text">
+              Pregnancy RP is strictly prohibited in all forms. This includes
+              attempts to imply, portray, or reference pregnancy in RP scenes.
+            </div>
+          </div>
+        </section>
+
+        <!-- CHARACTER CREATION -->
+        <section id="character" class="rule-block">
+          <h2>Character Creation</h2>
+
+          <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+            Character creation is your first impression on the city. These rules exist
+            to keep roleplay believable, respectful, and streamer-safe while still
+            allowing creativity.
+          </p>
+
+          <div class="cc-list">
+            <div class="cc-item">
+              <div class="cc-number">1</div>
+              <div class="cc-content">
+                Our age requirement is
+                <span class="notice-success">18+</span>. If you are found to be under the
+                age requirement, you are subject to a ban.
+              </div>
+            </div>
+
+            <div class="cc-item">
+              <div class="cc-number">2</div>
+              <div class="cc-content">
+                No PEDS are allowed unless approved by staff via a
+                <span class="notice-success">COMPLETED PED TICKET</span>.
+                <span class="notice-emphasis">ANIMAL PEDS ARE NOT ALLOWED</span>.
+              </div>
+            </div>
+
+            <div class="cc-item">
+              <div class="cc-number">3</div>
+              <div class="cc-content">
+                Be respectful with your character’s name. Any inappropriate or
+                unacceptable names may result in
+                <span class="notice-success">CHARACTER DELETION</span>.
+              </div>
+            </div>
+
+            <div class="cc-item">
+              <div class="cc-number">4</div>
+              <div class="cc-content">
+                <span class="notice-emphasis">NO ONE IS ALLOWED TO RUN AROUND NAKED.</span>
+                Anything promoting nudity is not allowed. Business outfits are fine —
+                use common sense and remember there are streamers in the city.
+              </div>
+            </div>
+
+            <div class="cc-item">
+              <div class="cc-number">5</div>
+              <div class="cc-content">
+                You may not wear organization or business clothing you are not part of
+                unless stolen temporarily in RP. You also may not wear any
+                <span class="notice-success">PAU HANA RP / STAFF-SPECIFIC CLOTHING</span>.
+              </div>
+            </div>
+
+            <div class="cc-item">
+              <div class="cc-number">6</div>
+              <div class="cc-content">
+                <span class="notice-success">YOUR FACE IS YOUR FACE!</span>
+                You may not use masks as permanent faces or RP gluing clothing to your
+                body. You must remove your mask for PD when requested and
+                <span class="notice-emphasis">CANNOT REFUSE A MUGSHOT</span>.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- OOC -->
+        <section id="ooc" class="rule-block">
+          <h2 class="ooc-title">OOC & IC INTERACTIONS</h2>
+
+          <p class="ooc-desc">
+            PAU HANA RP requires players to remain in character at all times unless
+            directly instructed by staff. Your immersion — and the immersion of others —
+            depends on maintaining the line between IC and OOC.
+          </p>
+
+          <div class="ooc-warning">
+            <strong>Going OOC (Out of Character) is prohibited.</strong><br>
+            This includes comments about rules, tickets, meta topics, evidence, or
+            anything that breaks immersion.
+          </div>
+
+          <div class="ooc-grid">
+            <div class="ooc-card">
+              <h4>DO NOT GO OOC</h4>
+              <ul>
+                <li>Do not break character in any situation.</li>
+                <li>Do not reveal personal or private information.</li>
+                <li>Only interact OOC when staff explicitly instruct you.</li>
+              </ul>
+            </div>
+
+            <div class="ooc-card">
+              <h4>WHAT COUNTS AS GOING OOC</h4>
+              <ul>
+                <li>Discussing rules or mechanics in RP.</li>
+                <li>Talking about tickets, reports, or clips.</li>
+                <li>Implying staff actions or enforcement IC.</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3 class="ooc-subtitle">CHARACTER BOUNDARIES & RP LIMITATIONS</h3>
+
+          <ul class="ooc-list">
+            <li>You may not perma-kill another player’s character.</li>
+            <li>Characters cannot share knowledge or assets without approval.</li>
+            <li>On your side, you may speak but must act injured and stay local.</li>
+            <li>Flatbacked players may not speak or use radio.</li>
+            <li>Do not reference tickets or staff unless staff are present IC.</li>
+          </ul>
+        </section>
+
+        <!-- NLR -->
+        <section id="nlr" class="rule-block">
+          <h2>New Life Rule (NLR)</h2>
+
+          <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+            The New Life Rule controls what your character remembers and how you behave
+            after being downed or “going to the light.” These rules apply to everyone,
+            including PD and EMS.
+          </p>
+
+          <div class="nlr-list">
+            <div class="nlr-item">
+              <div class="nlr-number">1</div>
+              <div class="nlr-content">
+                If you <span class="notice-success">go to the light</span>, NLR is in effect.
+                You are considered dead for that situation and must forget everything
+                leading up to your death.
+              </div>
+            </div>
+
+            <div class="nlr-item">
+              <div class="nlr-number">2</div>
+              <div class="nlr-content">
+                If you are <span class="notice-success">flatback</span>, you are considered
+                dead for that scene and <span class="notice-emphasis">cannot talk at all</span>.
+                Body cam footage cannot be used to remember events. PD may use footage for
+                <span class="notice-success">investigative purposes only</span>.
+              </div>
+            </div>
+
+            <div class="nlr-item">
+              <div class="nlr-number">3</div>
+              <div class="nlr-content">
+                You cannot go to the light while being transported to the hospital if you
+                are in <span class="notice-success">EMS or PD custody</span>.
+              </div>
+            </div>
+
+            <div class="nlr-item">
+              <div class="nlr-number">4</div>
+              <div class="nlr-content">
+                If EMS is unavailable and PD is on scene, PD must attempt life-saving
+                measures. You <span class="notice-emphasis">cannot</span> go to the light
+                while CPR is being performed. If CPR has stopped for
+                <span class="notice-success">30 seconds or more</span>, you may choose to go
+                to the light.
+              </div>
+            </div>
+
+            <div class="nlr-item">
+              <div class="nlr-number">5</div>
+              <div class="nlr-content">
+                If revived, you are considered
+                <span class="notice-success">out of the current scene</span>. You must leave
+                with your hands up and may not rejoin until the scene fully clears.
+              </div>
+            </div>
+
+            <div class="nlr-item">
+              <div class="nlr-number">6</div>
+              <div class="nlr-content">
+                The following actions are considered
+                <span class="notice-emphasis">rejoining / re-injecting</span>:
+                <ul class="list-disc ml-5 mt-2 space-y-1">
+                  <li>Leaving a scene and returning to participate again.</li>
+                  <li>Disconnecting and returning on a different character.</li>
+                  <li>Driving back and forth after abandoning an RP scene.</li>
+                  <li>Transporting bodies and returning to involve yourself.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- META -->
+        <section id="meta" class="rule-block">
+          <h2>Meta Gaming</h2>
+
+          <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+            Meta gaming is using information gained outside of roleplay to influence
+            in-character decisions. This breaks immersion and is strictly prohibited.
+          </p>
+
+          <div class="meta-list">
+            <div class="meta-item">
+              <div class="meta-number">1</div>
+              <div class="meta-content">
+                Using information from
+                <span class="notice-emphasis">streams, Discord, chats, or out-of-game sources</span>
+                to benefit your character is meta gaming.
+              </div>
+            </div>
+
+            <div class="meta-item">
+              <div class="meta-number">2</div>
+              <div class="meta-content">
+                You may not reference
+                <span class="notice-emphasis">server mechanics, scripts, bugs, or systems</span>
+                in roleplay unless explicitly allowed by staff.
+              </div>
+            </div>
+
+            <div class="meta-item">
+              <div class="meta-number">3</div>
+              <div class="meta-content">
+                Knowledge gained from
+                <span class="notice-success">previous characters</span>
+                does not carry over to new characters.
+              </div>
+            </div>
+
+            <div class="meta-item">
+              <div class="meta-number">4</div>
+              <div class="meta-content">
+                Watching another player’s stream and acting on information seen there
+                — even indirectly — is considered
+                <span class="notice-emphasis">hard meta gaming</span>.
+              </div>
+            </div>
+
+            <div class="meta-item">
+              <div class="meta-number">5</div>
+              <div class="meta-content">
+                You may not use
+                <span class="notice-emphasis">death screens, kill feeds, map markers, or UI elements</span>
+                as in-character information.
+              </div>
+            </div>
+
+            <div class="meta-item">
+              <div class="meta-number">6</div>
+              <div class="meta-content">
+                If you accidentally receive out-of-character information, you are
+                expected to
+                <span class="notice-success">ignore it completely</span>
+                and continue roleplay naturally.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- POWER GAMING -->
+        <section id="power" class="rule-block">
+          <h2>Power Gaming</h2>
+
+          <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+            Power gaming is forcing outcomes, ignoring roleplay limits, or using unrealistic
+            actions to gain an advantage. This behavior breaks immersion and fairness.
+          </p>
+
+          <div class="power-list">
+            <div class="power-item">
+              <div class="power-number">1</div>
+              <div class="power-content">
+                Forcing actions onto other players without giving them a chance to respond
+                is considered
+                <span class="notice-emphasis">power gaming</span>.
+              </div>
+            </div>
+
+            <div class="power-item">
+              <div class="power-number">2</div>
+              <div class="power-content">
+                Ignoring injuries, restraints, fear, or physical limitations to continue
+                fighting or escaping is not allowed.
+              </div>
+            </div>
+
+            <div class="power-item">
+              <div class="power-number">3</div>
+              <div class="power-content">
+                Unrealistic combat actions such as instantly breaking free, tanking damage,
+                or overpowering multiple players without RP justification is prohibited.
+              </div>
+            </div>
+
+            <div class="power-item">
+              <div class="power-number">4</div>
+              <div class="power-content">
+                You may not use game mechanics or animations to bypass roleplay outcomes
+                or avoid consequences.
+              </div>
+            </div>
+
+            <div class="power-item">
+              <div class="power-number">5</div>
+              <div class="power-content">
+                Escaping custody, restraints, or scenes without valid roleplay escalation
+                is considered power gaming.
+              </div>
+            </div>
+
+            <div class="power-item">
+              <div class="power-number">6</div>
+              <div class="power-content">
+                Power gaming violations may result in
+                <span class="notice-emphasis">warnings, scene reversals, or escalated punishment</span>
+                depending on severity.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- COMBAT LOGGING -->
+        <section id="combat" class="rule-block">
+          <h2>Combat Logging</h2>
+
+          <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+            Combat logging is leaving the server or disconnecting to avoid roleplay,
+            consequences, or active situations. This is taken seriously and strictly enforced.
+          </p>
+
+          <div class="combat-list">
+            <div class="combat-item">
+              <div class="combat-number">1</div>
+              <div class="combat-content">
+                Disconnecting during or immediately after a hostile situation, chase,
+                arrest, or confrontation is considered
+                <span class="notice-emphasis">combat logging</span>.
+              </div>
+            </div>
+
+            <div class="combat-item">
+              <div class="combat-number">2</div>
+              <div class="combat-content">
+                Logging out while restrained, injured, being pursued, or actively involved
+                in an RP scene is not allowed.
+              </div>
+            </div>
+
+            <div class="combat-item">
+              <div class="combat-number">3</div>
+              <div class="combat-content">
+                If you crash or disconnect unintentionally, you are required to
+                <span class="notice-accent">rejoin immediately</span>
+                and continue the situation.
+              </div>
+            </div>
+
+            <div class="combat-item">
+              <div class="combat-number">4</div>
+              <div class="combat-content">
+                Failure to return after a disconnect must be reported to staff
+                as soon as possible with valid reasoning.
+              </div>
+            </div>
+
+            <div class="combat-item">
+              <div class="combat-number">5</div>
+              <div class="combat-content">
+                Repeated or intentional combat logging may result in
+                <span class="notice-emphasis">escalated punishment</span>,
+                including temporary or permanent removal.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- GUN FEAR -->
+        <section id="gunfear" class="rule-block">
+          <h2>Gun Fear</h2>
+
+          <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+            Gun fear represents realistic reactions to lethal threats. When a firearm
+            is present, characters must respond with appropriate caution and survival instinct.
+          </p>
+
+          <div class="gunfear-list">
+            <div class="gunfear-item">
+              <div class="gunfear-number">1</div>
+              <div class="gunfear-content">
+                When a firearm is drawn and aimed at you, your character must show
+                <span class="notice-accent">fear and compliance</span>
+                appropriate to the situation.
+              </div>
+            </div>
+
+            <div class="gunfear-item">
+              <div class="gunfear-number">2</div>
+              <div class="gunfear-content">
+                Ignoring a lethal threat, taunting, or acting unrealistically calm
+                while under gunpoint is not allowed.
+              </div>
+            </div>
+
+            <div class="gunfear-item">
+              <div class="gunfear-number">3</div>
+              <div class="gunfear-content">
+                Attempting to fight, flee, or disarm someone with a firearm
+                must be clearly justified through roleplay and circumstance.
+              </div>
+            </div>
+
+            <div class="gunfear-item">
+              <div class="gunfear-number">4</div>
+              <div class="gunfear-content">
+                Drawing a weapon against an armed opponent without RP escalation
+                may be considered
+                <span class="notice-emphasis">power gaming</span>.
+              </div>
+            </div>
+
+            <div class="gunfear-item">
+              <div class="gunfear-number">5</div>
+              <div class="gunfear-content">
+                Repeated failure to show gun fear can result in
+                <span class="notice-emphasis">staff action</span>
+                or escalation in punishment.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CRIMINAL / COP -->
+        <section id="criminal-cop" class="rule-block">
+          <h2>Criminal / Cop Interactions</h2>
+
+          <p class="section-desc">
+            Criminals and law enforcement must interact in a way that is realistic,
+            fair, and enjoyable for everyone involved. These rules define expectations
+            during traffic stops, chases, robberies, and active scenes.
+          </p>
+
+          <ul class="numbered-rule-list">
+            <li>
+              <span class="rule-num">1</span>
+              <div>
+                When pulled over, you must roleplay the traffic stop for at least
+                <span class="notice-success">1 full minute</span>.
+                PD must also create a <span class="notice-success">realistic traffic stop scenario</span> in return.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">2</span>
+              <div>
+                If you were not part of the original
+                <span class="notice-success">heist, robbery, or traffic stop</span>,
+                and no outside help was demanded,
+                <span class="notice-emphasis">you are NOT ALLOWED</span> to interfere.
+
+                <br><br>
+                If outside help is requested:
+                <ul class="sub-bullets">
+                  <li>They count toward the <span class="notice-success">total criminal count</span>.</li>
+                  <li>PD must be informed that outside help is involved.</li>
+                </ul>
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">3</span>
+              <div>
+                You may not ambush PD unless it occurs within your gang’s
+                <span class="notice-success">compound or controlled turf</span>.
+                Officers must be warned before entering controlled turf.
+
+                <br><br>
+                Only your <span class="notice-success">own gang</span> may assist —
+                <span class="notice-emphasis">no random contracts</span>.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">4</span>
+              <div>
+                <span class="notice-emphasis">Dirty cops are NOT allowed.</span>
+                Selling, giving, or abusing PD-issued equipment is a
+                <span class="notice-emphasis">bannable offense</span>.
+
+                <br><br>
+                This includes:
+                <ul class="sub-bullets">
+                  <li>Removing items from evidence to give away</li>
+                  <li>Deleting MDT entries to cover crimes</li>
+                </ul>
+
+                Mistakes or policy violations may still be handled through
+                PD’s internal RP systems and admin review.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">5</span>
+              <div>
+                You may take a cop hostage only when there are
+                <span class="notice-success">6 or more officers</span> on duty.
+                This must involve proper escalation —
+                <span class="notice-emphasis">not rushing with guns</span>.
+
+                <br><br>
+                Once taken hostage, the officer must go
+                <span class="notice-success">off duty</span> for the duration.
+                PD must fear for hostages’ lives, including EMS hostages.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">6</span>
+              <div>
+                If there are <span class="notice-success">fewer than 4 cops</span> on duty,
+                criminals must warn officers at least
+                <span class="notice-success">3 separate times</span>
+                to leave the scene before any loss of life for PD may occur.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">7</span>
+              <div>
+                If criminals take a
+                <span class="notice-success">body cam or dash cam</span>
+                from PD, that officer loses all information from the incident
+                for future investigations or court cases.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">8</span>
+              <div>
+                Cops and cop vehicles <span class="notice-success">may be looted</span> —
+                but <span class="notice-emphasis">NOT</span> for weapons or any
+                <span class="notice-success">PD-only equipment</span>
+                (this includes MedKits).
+
+                <br><br>
+                Examples of allowed loot:
+                <ul class="sub-bullets">
+                  <li>Food</li>
+                  <li>Radios</li>
+                  <li>Phones</li>
+                  <li>Ammo</li>
+                  <li>Cleaning kits</li>
+                  <li>Tasers</li>
+                  <li>Bandages</li>
+                  <li>Weapon attachments</li>
+                  <li>Evidence left on the officer</li>
+                </ul>
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">9</span>
+              <div>
+                If PD enters an
+                <span class="notice-success">active shootout</span>,
+                they may be shot without additional instigation —
+                the scene is already active.
+
+                <br><br>
+                However, criminals
+                <span class="notice-emphasis">cannot</span>
+                shoot officers who are not driving into, approaching,
+                or actively attempting to engage in that scene.
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- EMS -->
+        <section id="ems-rp" class="rule-block">
+          <h2>EMS Roleplay (EMS RP)</h2>
+
+          <p class="section-desc">
+            EMS roleplay is required to be realistic, respectful, and immersive.
+            Medical roleplay impacts life-or-death situations and must be taken seriously
+            at all times by both EMS and civilians.
+          </p>
+
+          <ul class="numbered-rule-list">
+            <li>
+              <span class="rule-num">1</span>
+              <div>
+                EMS must provide
+                <span class="notice-success">realistic and professional medical roleplay</span>
+                when responding to scenes. Rushing treatment or ignoring injuries is not allowed.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">2</span>
+              <div>
+                Civilians must
+                <span class="notice-success">comply with EMS instructions</span>
+                while receiving treatment. Ignoring medical direction without RP justification
+                is considered <span class="notice-emphasis">Fail RP</span>.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">3</span>
+              <div>
+                If you are
+                <span class="notice-success">downed or injured</span>,
+                you must roleplay your injuries appropriately.
+                You may not sprint, fight, or act uninjured unless cleared by EMS.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">4</span>
+              <div>
+                EMS are considered
+                <span class="notice-success">neutral parties</span>.
+                Targeting, kidnapping, or killing EMS without strong roleplay justification
+                is <span class="notice-emphasis">strictly prohibited</span>.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">5</span>
+              <div>
+                EMS vehicles, equipment, and personnel
+                <span class="notice-emphasis">may NOT be looted</span>
+                under any circumstances unless explicitly approved by staff for a storyline.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">6</span>
+              <div>
+                EMS may refuse transport or treatment if a patient is
+                <span class="notice-emphasis">actively hostile</span>
+                or the scene is unsafe. Scene safety must be established before care begins.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">7</span>
+              <div>
+                If a patient is transported to the hospital,
+                they are considered in
+                <span class="notice-success">medical custody</span>
+                and may not leave until cleared by EMS or transferred to PD custody.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">8</span>
+              <div>
+                EMS must follow
+                <span class="notice-success">New Life Rule (NLR)</span>
+                guidelines and may not use medical knowledge to restore memory
+                or reinsert a player into an active scene.
+              </div>
+            </li>
+
+            <li>
+              <span class="rule-num">9</span>
+              <div>
+                Abuse, harassment, or trolling of EMS staff —
+                including refusing RP or wasting resources —
+                may result in
+                <span class="notice-emphasis">administrative action</span>.
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- GREEN ZONES -->
+        <section id="green-zones" class="rule-block green-zone-block">
+          <h2 class="green-zone-title">Green Zones — No Hostile Actions Allowed</h2>
+
+          <div class="green-zone-rules">
+            <ul>
+              <li>
+                Green Zones are <strong>safe areas</strong> where
+                <span class="notice-success">no hostile actions</span> are permitted —
+                including fighting, robbing, shooting, kidnapping, or trash-talking.
+              </li>
+              <li>
+                If you escalate a situation inside a Green Zone, it may be treated as a
+                <span class="notice-emphasis">rule violation</span> or converted into a grey zone at staff discretion.
+              </li>
+              <li>
+                Waiting outside a Green Zone to initiate RP as someone exits is considered
+                <span class="notice-emphasis">camping</span> and is not allowed.
+              </li>
+              <li>
+                Any hostile action witnessed in a Green Zone should be
+                <span class="notice-success">reported immediately</span>.
+              </li>
+              <li>
+                Green Zone locations may change — always stay updated through
+                <span class="notice-success">official announcements</span>.
+              </li>
+            </ul>
+          </div>
+
+          <h3 class="green-zone-subtitle">Designated Green Zones</h3>
+
+          <div class="green-zone-grid">
+
+            <!-- Apartments -->
+            <div class="green-zone-card clickable"
+              data-image="./assets/green-zones/apartments.jpg"
+              data-title="Apartments"
+              data-labels="Eclipse Towers Penthouses • Del Perro Apartments • Paleto Motel • Sandy Motel">
+
+              <img src="./assets/green-zones/apartments.jpg" alt="">
+              <span>Apartments</span>
+            </div>
+
+            <!-- Hospitals (FIXED: matches apartments + uses same dataset/lightbox) -->
+            <div class="green-zone-card clickable"
+              data-image="./assets/green-zones/hospitals.jpg"
+              data-title="Hospitals"
+              data-labels="Pillbox Hill Medical Center • Sandy Shores Medical Center">
+
+              <img src="./assets/green-zones/hospitals.jpg" alt="">
+              <span>Hospitals</span>
+            </div>
+
+            <!-- Police Stations -->
+            <div class="green-zone-card clickable"
+              data-image="./assets/green-zones/police.jpg"
+              data-title="Police Stations"
+              data-labels="MISSION ROW POLICE STATION • BLAINE COUNTRY SHERIFFS OFFICE">
+
+              <img src="./assets/green-zones/police.jpg" alt="Police Stations Green Zone">
+              <span>Police Stations</span>
+            </div>
+
+            <!-- Player Businesses -->
+            <div class="green-zone-card clickable"
+              data-image="./assets/green-zones/businesses.jpg"
+              data-title="Player Businesses"
+              data-labels="PIZZA THIS • BAHAMA MAMAS • BURGER SHOT • HORNYS etc. ">
+
+              <img src="./assets/green-zones/businesses.jpg" alt="Player Businesses Green Zone">
+              <span>Player Businesses</span>
+            </div>
+
+          </div>
+        </section>
+        <!-- RED ZONES -->
+<section id="red-zones" class="rule-block red-zone-block">
+  <h2 class="red-zone-title">Red Zones — Lethal Force Allowed</h2>
+
+  <div class="red-zone-rules">
+    <ul>
+      <li>
+  Active Red Zones are designated
+  <span class="notice-emphasis">temporarily</span>
+  and announced through city meetings or official communications.
+</li>
+    </ul>
+  </div>
+
+  <h3 class="red-zone-subtitle">Designated Red Zones</h3>
+
+<div class="red-zone-grid">
+
+  <div class="red-zone-card clickable"
+    data-image="./assets/red-zones/tba-locations.jpg"
+    data-title="Red Zones — Dynamic Locations"
+    data-labels="Red Zone locations change frequently. Active zones are announced during city meetings, official communications, or in-character broadcasts. Players are responsible for staying informed.">
+
+    <img src="./assets/red-zones/tba-locations.jpg" alt="Red Zones TBA">
+    <span>Locations Announced at City Meetings</span>
+  </div>
+
+</div>
+</section>
+<!-- HELICOPTERS & VEHICLES -->
+<section id="vehicles" class="rule-block">
+  <h2>Helicopters & Vehicles</h2>
+
+  <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+    Vehicle usage plays a major role in pursuits, escapes, and scene control.
+    These rules exist to maintain realism, balance, and fair roleplay for all parties.
+  </p>
+
+  <ul class="numbered-rule-list">
+
+    <li>
+      <span class="rule-num">1</span>
+      <div>
+        Vehicles must be operated
+        <span class="notice-success">realistically and responsibly</span>.
+        Unrealistic driving, ignoring vehicle damage, or treating vehicles as disposable
+        is considered <span class="notice-emphasis">Fail RP</span>.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">2</span>
+      <div>
+        Using vehicles to
+        <span class="notice-emphasis">ram, pin, or intentionally crush players</span>
+        without proper escalation or justification is not allowed.
+        Vehicles are not weapons unless the situation clearly escalates to that level.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">3</span>
+      <div>
+        Jumping vehicles off extreme heights, cliffs, or obstacles
+        without consequence or injury roleplay is prohibited.
+        You must account for
+        <span class="notice-success">vehicle condition and character injury</span>.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">4</span>
+      <div>
+        Helicopters may only be used when
+        <span class="notice-success">properly staffed and roleplayed</span>.
+        Solo or reckless helicopter use that disrupts RP flow may result in staff action.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">5</span>
+      <div>
+        Using helicopters to
+        <span class="notice-emphasis">hover directly over scenes</span>,
+        spam spotlighting, or force unrealistic outcomes is not allowed.
+        Air units must maintain safe distance and believable flight behavior.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">6</span>
+      <div>
+        Landing helicopters in
+        <span class="notice-emphasis">unsafe or unrealistic locations</span>
+        (crowded streets, rooftops without clearance, active scenes)
+        without proper setup and escalation is prohibited.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">7</span>
+      <div>
+        Vehicles may not be used to bypass roleplay outcomes,
+        avoid consequences, or escape situations
+        without valid escalation and opportunity for counterplay.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">8</span>
+      <div>
+        Vehicle and aircraft abuse —
+        including repeated reckless use, intentional crashing,
+        or exploiting mechanics —
+        may result in
+        <span class="notice-emphasis">vehicle restrictions or removal</span>.
+      </div>
+    </li>
+
+  </ul>
+</section>
+<!-- TSUNAMI -->
+<section id="tsunami" class="rule-block">
+  <h2>Tsunami — Server Restart Protocol</h2>
+
+  <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+    Tsunamis represent server restarts and maintenance cycles.
+    These rules exist to prevent exploitation, rushed scenarios, and immersion-breaking behavior.
+  </p>
+
+  <ul class="numbered-rule-list">
+
+    <li>
+      <span class="rule-num">1</span>
+      <div>
+        A tsunami is announced
+        <span class="notice-success">in advance</span>
+        through in-game notifications or official communication.
+        Players are expected to
+        <span class="notice-emphasis">prepare to safely conclude ongoing roleplay</span>.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">2</span>
+      <div>
+        During the final minutes before a tsunami,
+        players may not
+        <span class="notice-emphasis">initiate new roleplay scenarios</span>,
+        crimes, pursuits, or confrontations.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">3</span>
+      <div>
+        Ongoing scenes must be
+        <span class="notice-success">paused or wrapped up naturally</span>.
+        Forced conclusions, rushed actions, or “last-minute plays”
+        are not permitted.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">4</span>
+      <div>
+        Players may not use the tsunami to
+        <span class="notice-emphasis">escape arrest, death, injury, or consequences</span>.
+        Any scenario in progress must be
+        <span class="notice-success">continued after restart</span>
+        if applicable.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">5</span>
+      <div>
+        Logging out early to avoid RP,
+        hide assets, or reposition characters
+        before a tsunami is considered
+        <span class="notice-emphasis">combat logging or fail RP</span>.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">6</span>
+      <div>
+        After a tsunami,
+        players should
+        <span class="notice-success">resume roleplay logically</span>
+        and respect injuries, locations, and outcomes
+        from prior scenes unless staff directs otherwise.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">7</span>
+      <div>
+        Staff may intervene, pause, or nullify scenarios
+        affected by a tsunami if fairness or stability is compromised.
+        Staff decisions regarding tsunami-related incidents are
+        <span class="notice-emphasis">final</span>.
+      </div>
+    </li>
+
+  </ul>
+</section>
+<!-- KILLING & ROBBING -->
+<section id="robbery" class="rule-block">
+  <h2>Killing & Robbing</h2>
+
+  <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+    Killing and robbing are high-impact actions that must be driven by meaningful
+    roleplay, proper escalation, and clear intent. Random violence or robbery without
+    justification is strictly prohibited.
+  </p>
+
+  <ul class="numbered-rule-list">
+
+    <li>
+      <span class="rule-num">1</span>
+      <div>
+        Killing another player requires
+        <span class="notice-success">clear roleplay escalation</span>
+        and a valid in-character reason.
+        Random or unprovoked killing is considered
+        <span class="notice-emphasis">RDM (Random Deathmatch)</span>.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">2</span>
+      <div>
+        Robbing another player must involve
+        <span class="notice-success">meaningful interaction and communication</span>.
+        Immediately shooting or incapacitating a player solely to loot them
+        without roleplay is not allowed.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">3</span>
+      <div>
+        You may not rob players in
+        <span class="notice-emphasis">Green Zones</span>
+        or during protected roleplay scenarios
+        (medical treatment, active EMS care, or staff-supervised scenes).
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">4</span>
+      <div>
+        Killing to prevent reporting, identification, or retaliation
+        must be
+        <span class="notice-success">clearly justified</span>
+        through roleplay and circumstance.
+        Executions without escalation are not permitted.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">5</span>
+      <div>
+        Downed or incapacitated players may not be
+        <span class="notice-emphasis">executed or “finished off”</span>
+        unless the situation clearly escalates to that level
+        and falls within active Red Zone conditions.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">6</span>
+      <div>
+        You may rob items that are
+        <span class="notice-success">visibly carried or reasonably accessible</span>
+        during the scene.
+        Robbing excessive or unrelated items without roleplay justification
+        may be considered abuse.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">7</span>
+      <div>
+        Robbing the same player repeatedly within a short timeframe
+        without new escalation or storyline development
+        is considered
+        <span class="notice-emphasis">harassment or powergaming</span>.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">8</span>
+      <div>
+        Killing or robbing solely to
+        <span class="notice-emphasis">gain money, loot, or convenience</span>
+        without story-driven motivation
+        is not valid roleplay.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">9</span>
+      <div>
+        Staff reserve the right to
+        <span class="notice-success">review intent, escalation, and context</span>
+        when determining rule compliance.
+        Punishments may scale based on severity and repetition.
+      </div>
+    </li>
+
+  </ul>
+</section>
+<!-- WHITELISTED JOBS -->
+<section id="whitelist" class="rule-block">
+  <h2>Whitelisted Jobs</h2>
+
+  <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+    Whitelisted jobs represent trusted roles that directly affect city balance,
+    progression, and immersion. Players in these roles are held to a
+    <span class="notice-success">higher standard of conduct</span>
+    and roleplay quality.
+  </p>
+
+  <ul class="numbered-rule-list">
+
+    <li>
+      <span class="rule-num">1</span>
+      <div>
+        Players in whitelisted roles must
+        <span class="notice-success">maintain realistic, professional roleplay</span>
+        at all times while on duty.
+        Abuse of authority or power is not tolerated.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">2</span>
+      <div>
+        Whitelisted jobs may not be used to
+        <span class="notice-emphasis">benefit personal characters, friends, or organizations</span>
+        unfairly.
+        Any form of favoritism or corruption without approved storyline
+        is prohibited.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">3</span>
+      <div>
+        You may not perform
+        <span class="notice-emphasis">off-duty actions</span>
+        that conflict with your whitelisted role
+        unless explicitly approved by staff.
+        This includes criminal activity that undermines your position.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">4</span>
+      <div>
+        Whitelisted roles must follow
+        <span class="notice-success">department policies, SOPs, and command structure</span>
+        where applicable.
+        Internal discipline should be handled through roleplay before staff escalation.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">5</span>
+      <div>
+        Using whitelisted tools, permissions, or systems
+        to bypass mechanics, avoid consequences,
+        or gain unfair advantage is considered
+        <span class="notice-emphasis">powergaming</span>.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">6</span>
+      <div>
+        Inactivity, repeated low-effort roleplay,
+        or failure to meet expectations
+        may result in
+        <span class="notice-emphasis">whitelist removal</span>
+        with or without prior warning.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">7</span>
+      <div>
+        Players removed from a whitelisted job
+        may be required to wait a
+        <span class="notice-success">cooldown period</span>
+        before reapplying.
+        Reinstatement is at staff discretion.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">8</span>
+      <div>
+        Staff reserve the right to
+        <span class="notice-success">review conduct, performance, and intent</span>
+        when determining eligibility to retain or hold a whitelisted role.
+        Staff decisions regarding whitelisted jobs are final.
+      </div>
+    </li>
+
+  </ul>
+</section>
+<!-- BANKS & ROBBERIES -->
+<section id="banks" class="rule-block">
+  <h2>Banks & Robberies</h2>
+
+  <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+    Robberies are high-stakes, coordinated roleplay scenarios.
+    These rules exist to ensure fair escalation, clear communication,
+    and enjoyable outcomes for both criminals and law enforcement.
+  </p>
+
+  <ul class="numbered-rule-list">
+
+    <li>
+      <span class="rule-num">1</span>
+      <div>
+        All robberies must involve
+        <span class="notice-success">clear roleplay intent and planning</span>.
+        Rushing objectives, speed-running mechanics, or bypassing interaction
+        is considered <span class="notice-emphasis">Fail RP</span>.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">2</span>
+      <div>
+        Hostages must be
+        <span class="notice-success">obtained and roleplayed properly</span>.
+        Fake hostages, NPC-only hostages (when players are available),
+        or rushed hostage grabs without RP are not permitted.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">3</span>
+      <div>
+        Robberies may not be initiated in
+        <span class="notice-emphasis">Green Zones</span>
+        or during protected scenarios unless explicitly allowed by staff
+        for a storyline or event.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">4</span>
+      <div>
+        Criminals must allow
+        <span class="notice-success">reasonable negotiation time</span>
+        with PD. Immediately opening fire or forcing outcomes
+        without escalation is not allowed.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">5</span>
+      <div>
+        PD response and tactics should scale
+        <span class="notice-success">appropriately to the threat level</span>.
+        Overwhelming force without escalation may be reviewed by staff.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">6</span>
+      <div>
+        Using robberies to
+        <span class="notice-emphasis">bait or farm PD kills</span>,
+        create repetitive shootouts,
+        or force constant engagements is prohibited.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">7</span>
+      <div>
+        Escape plans must be
+        <span class="notice-success">realistic and roleplayed</span>.
+        Instant vehicle swaps, teleporting, or exploiting mechanics
+        to evade consequences is not allowed.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">8</span>
+      <div>
+        If a robbery fails,
+        criminals must
+        <span class="notice-success">accept the outcome</span>.
+        Disconnecting, stalling, or forcing resets
+        to avoid arrest or loss is considered
+        <span class="notice-emphasis">combat logging</span>.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">9</span>
+      <div>
+        Robbery frequency, group size,
+        and escalation limits
+        may be adjusted by staff
+        to maintain city balance and server health.
+      </div>
+    </li>
+
+  </ul>
+</section>
+<!-- PC CHECKS -->
+<section id="pc" class="rule-block">
+  <h2>PC Checks</h2>
+
+  <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+    PC Checks are conducted to ensure fair play, rule compliance,
+    and the integrity of roleplay. These checks are not punitive by default
+    and are used when staff require clarification during investigations.
+  </p>
+
+  <ul class="numbered-rule-list">
+
+    <li>
+      <span class="rule-num">1</span>
+      <div>
+        Players may be asked to participate in a
+        <span class="notice-success">PC Check</span>
+        during or after an investigation.
+        Cooperation is required unless otherwise stated by staff.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">2</span>
+      <div>
+        Refusing, delaying, or intentionally interfering with a PC Check
+        without valid reasoning may result in
+        <span class="notice-emphasis">disciplinary action</span>.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">3</span>
+      <div>
+        PC Checks are limited in scope.
+        Staff will only request access to
+        <span class="notice-success">relevant files, settings, or information</span>
+        necessary for the investigation.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">4</span>
+      <div>
+        Players are
+        <span class="notice-success">not required</span>
+        to provide personal files unrelated to FiveM, GTA,
+        or the incident being reviewed.
+        Staff will not access private or sensitive personal data.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">5</span>
+      <div>
+        Tampering with files, deleting data,
+        or altering settings
+        <span class="notice-emphasis">before or during</span>
+        a PC Check is prohibited and may result in escalated punishment.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">6</span>
+      <div>
+        PC Checks may include reviewing
+        <span class="notice-success">FiveM settings, overlays, configs, keybinds,
+        macros, or third-party software</span>
+        relevant to the investigation.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">7</span>
+      <div>
+        If a violation is found,
+        staff will explain the findings and outcome.
+        Punishment will be based on
+        <span class="notice-success">severity, intent, and history</span>.
+      </div>
+    </li>
+
+    <li>
+      <span class="rule-num">8</span>
+      <div>
+        Abuse of the PC Check process —
+        by either players or staff —
+        is not tolerated.
+        Any concerns should be addressed through
+        <span class="notice-success">proper staff channels</span>.
+      </div>
+    </li>
+
+  </ul>
+</section>
+<!-- REPORTS VS TICKETS -->
+<section id="reports" class="rule-block">
+
+  <h2>Reports vs Tickets</h2>
+
+  <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+    Reports and tickets exist to maintain fairness, accountability, and immersion.
+    Choosing the correct method ensures faster resolution and helps staff act efficiently.
+  </p>
+
+  <!-- CORE GUIDANCE -->
+  <div class="reports-core-grid">
+
+    <div class="reports-core-card green">
+      <h4>Use Tickets</h4>
+      <p>
+        Tickets should be used for
+        <strong>minor or clear-cut rule violations</strong>
+        that do not require extended investigation.
+      </p>
+    </div>
+
+    <div class="reports-core-card blue">
+      <h4>Use Reports</h4>
+      <p>
+        Reports should be submitted for
+        <strong>serious, repeated, or complex incidents</strong>
+        that require evidence review or staff discussion.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- WARNING / CS CARDS -->
+  <h3 class="reports-warning-title">Abuse & Misuse — Zero Tolerance</h3>
+
+  <div class="reports-warning-grid">
+
+    <div class="reports-warning-card danger">
+      <h4>Arguing in Tickets</h4>
+      <p>
+        Arguing, demanding reversals inside tickets
+        instead of following staff direction is not allowed. This could led to a an escalated government issue.
+      </p>
+      <span class="cs-tag">View Warnings System</span>
+    </div>
+
+    <div class="reports-warning-card danger">
+      <h4>Staff Harassment via Reports</h4>
+      <p>
+        Harassing, spamming, or repeatedly reopening tickets or reports
+        after a decision has been made is strictly prohibited.
+      </p>
+      <span class="cs-tag">View Warnings System</span>
+    </div>
+
+    <div class="reports-warning-card warning">
+      <h4>False or Malicious Reports</h4>
+      <p>
+        Submitting knowingly false, misleading, or malicious reports
+        wastes staff time and undermines the reporting system.
+      </p>
+      <span class="cs-tag">View Warnings System</span>
+    </div>
+
+  </div>
+
+</section>
+<!-- WARNING SYSTEM -->
+<section id="warnings" class="rule-block">
+
+  <h2>Warning System</h2>
+
+  <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+    Pau Hana RP uses a structured warning system to ensure consistency and fairness.
+    Repeated violations escalate punishment severity. Staff discretion always applies.
+  </p>
+
+  <div class="warning-system-grid">
+
+    <!-- LEVEL 1 -->
+    <div class="warning-card level-1">
+      <h4 class="warning-title">LEVEL 1 — VERBAL WARNING</h4>
+      <p>
+        Minor infractions or first-time mistakes.
+        Used to educate players and correct behavior.
+      </p>
+      <p class="warning-punishment">
+        Punishment: <strong>Verbal Warning</strong>
+      </p>
+    </div>
+
+    <!-- LEVEL 2 -->
+    <div class="warning-card level-2">
+      <h4 class="warning-title">LEVEL 2 — WRITTEN WARNING</h4>
+      <p>
+        Repeated minor violations or failure to correct behavior
+        after a verbal warning.
+      </p>
+      <p class="warning-punishment">
+        Punishment: <strong>Logged Warning</strong>
+      </p>
+    </div>
+
+    <!-- LEVEL 3 -->
+    <div class="warning-card level-3">
+      <h4 class="warning-title">LEVEL 3 — COMMUNITY SERVICE</h4>
+      <p>
+        Moderate rule violations or continued disregard
+        for staff instruction.
+      </p>
+      <p class="warning-punishment">
+        Punishment: <strong>250 Community Service</strong>
+      </p>
+    </div>
+
+    <!-- LEVEL 4 -->
+    <div class="warning-card level-4">
+      <h4 class="warning-title">LEVEL 4 — ESCALATED PUNISHMENT</h4>
+      <p>
+        Serious violations, report abuse,
+        or repeated Level 3 offenses.
+      </p>
+      <p class="warning-punishment">
+        Punishment: <strong>500+ Community Service</strong>
+      </p>
+    </div>
+
+    <!-- LEVEL 5 -->
+    <div class="warning-card level-5">
+      <h4 class="warning-title">LEVEL 5 — TEMPORARY SUSPENSION</h4>
+      <p>
+        Severe rule abuse, harassment,
+        or refusal to comply with staff decisions.
+      </p>
+      <p class="warning-punishment">
+        Punishment: <strong>Temporary Ban</strong>
+      </p>
+    </div>
+
+    <!-- LEVEL 6 -->
+    <div class="warning-card level-6">
+      <h4 class="warning-title">LEVEL 6 — PERMANENT REMOVAL</h4>
+      <p>
+        Extreme misconduct, malicious behavior,
+        or repeated violations across multiple categories.
+      </p>
+      <p class="warning-punishment">
+        Punishment: <strong>Permanent Ban</strong>
+      </p>
+    </div>
+
+  </div>
+
+</section>
+<!-- SOPs -->
+<section id="sops" class="rule-block">
+
+  <h2>SOPs — Standard Operating Procedures</h2>
+
+  <p class="mt-2 text-sm text-gray-300 max-w-3xl">
+    Standard Operating Procedures (SOPs) define roleplay expectations for all players.
+    SOPs exist to maintain consistency, realism, and fair staff enforcement across the city.
+  </p>
+
+  <div class="sop-accordion">
+
+    <!-- CIVILIAN SOPs -->
+    <div class="sop-item">
+      <button class="sop-toggle">
+        Civilian SOPs
+        <span class="sop-icon">+</span>
+      </button>
+      <div class="sop-content">
+        <ul>
+          <li>Civilians must value their life at all times.</li>
+          <li>Random violence, vigilantism, or escalation without RP buildup is prohibited.</li>
+          <li>Fear RP is required when faced with weapons or overwhelming force.</li>
+          <li>Civilians may not interfere with active police scenes unless roleplay permits.</li>
+          <li>Unrealistic behavior (suicide rushing, powergaming, NVL) is not allowed.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CRIMINAL SOPs -->
+    <div class="sop-item">
+      <button class="sop-toggle">
+        Criminal SOPs
+        <span class="sop-icon">+</span>
+      </button>
+      <div class="sop-content">
+        <ul>
+          <li>DISCLAIMER: If you are an approved gang you must involve yourself in criminal activities including kidnappings, robberies, shootings etc. If you do not involve yourself in any gang activities or interact with other gangs your gang can risk disbandment. If you don't want to do gang activities and be in shootings, live the civilian life. If you’re not about that life this is not the SOP for you.</li>
+          <li>Criminal actions must have realistic planning and RP justification.</li>
+          <li>Gang activity must follow established turf and escalation rules.</li>
+          <li>No excessive violence without reason or continuation RP.</li>
+          <li>Robberies, kidnappings, and ambushes must allow counter-play.</li>
+          <li>Combat logging or avoiding consequences is strictly prohibited.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- WHITELISTED JOB SOPs -->
+    <div class="sop-item">
+      <button class="sop-toggle">
+        Whitelisted Job SOPs (PD / EMS / Others)
+        <span class="sop-icon">+</span>
+      </button>
+      <div class="sop-content">
+        <ul>
+          <li>Whitelisted roles must prioritize roleplay over winning.</li>
+          <li>Abuse of authority or equipment will result in escalation.</li>
+          <li>EMS must provide medical RP before revives when possible.</li>
+          <li>Police must follow escalation, force, and engagement SOPs.</li>
+          <li>Corruption RP requires staff approval.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STAFF & GENERAL SOPs -->
+    <div class="sop-item">
+      <button class="sop-toggle">
+        Staff & General Enforcement SOPs
+        <span class="sop-icon">+</span>
+      </button>
+      <div class="sop-content">
+        <ul>
+          <li>Staff decisions are final during active situations.</li>
+          <li>Rule disputes must be handled through reports, not in RP.</li>
+          <li>Staff discretion applies in situations not explicitly covered.</li>
+          <li>Abuse of loopholes will be treated as rule violations.</li>
+          <li>Repeated SOP violations escalate punishment severity.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sop-notice">
+    SOP violations may result in warnings, community service,
+    suspensions, or permanent removal depending on severity.
+  </div>
+
+</section>
+
+      </main>
+
+      <aside class="toc">
+        <div class="toc-title">Table of Contents</div>
+        <div class="toc-indicator"></div>
+
+        <a href="#notice">Notice</a>
+        <a href="#global-policies">Server Rules</a>
+        <a href="#toxicity">Toxicity & Respect</a>
+        <a href="#character">Character Creation</a>
+        <a href="#ooc">OOC & IC Interactions</a>
+        <a href="#nlr">New Life Rule</a>
+        <a href="#meta">Meta Gaming</a>
+        <a href="#power">Power Gaming</a>
+        <a href="#combat">Combat Logging</a>
+        <a href="#gunfear">Gun Fear</a>
+        <a href="#copfear">Cop Fear</a>
+        <a href="#criminal-cop">Criminal / Cop Interactions</a>
+        <a href="#ems-rp">EMS RP</a>
+        <a href="#green-zones">Green Zones</a>
+        <a href="#red-zones">Red Zones</a>
+        <a href="#vehicles">Helicopters & Vehicles</a>
+        <a href="#tsunami">Tsunami</a>
+        <a href="#robbery">Killing & Robbing</a>
+        <a href="#whitelist">Whitelisted Jobs</a>
+        <a href="#banks">Banks & Robberies</a>
+        <a href="#pc">PC Checks</a>
+        <a href="#reports">Reports vs Tickets</a>
+        <a href="#warnings">Warning System</a>
+        <a href="#sops">SOPs</a>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- TOC SCRIPT (unchanged) -->
+  <script>
+    const toc=document.querySelector('.toc');
+    const links=[...toc.querySelectorAll('a')];
+    const sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const indicator=document.querySelector('.toc-indicator');
+
+    if (sections[0]) {
+      new IntersectionObserver(([e])=>{
+        if(e.isIntersecting)toc.classList.add('visible');
+      },{threshold:.2}).observe(sections[0]);
+    }
+
+    window.addEventListener('scroll',()=>{
+      if (!sections.length) return;
+
+      let current=sections[0];
+      sections.forEach(sec=>{
+        if(window.scrollY+180>=sec.offsetTop) current=sec;
+      });
+
+      links.forEach(l=>l.classList.remove('active'));
+      const active=document.querySelector(`.toc a[href="#${current.id}"]`);
+      if(active){
+        active.classList.add('active');
+        indicator.style.top=active.offsetTop+8+'px';
+      }
+    });
+  </script>
+
+  <!-- GREEN ZONE LIGHTBOX SCRIPT (DEDUPED: ONLY ONE INSTANCE) -->
+  <script>
+    document.addEventListener('click', e => {
+  const card = e.target.closest('.green-zone-card, .red-zone-card');
+  if (!card) return;
+
+  const lightbox = document.getElementById('greenLightbox');
+
+  // RESET THEMES
+  lightbox.className = 'green-lightbox';
+
+  // APPLY THEME BASED ON CARD TYPE
+  if (card.classList.contains('red-zone-card')) {
+    lightbox.classList.add('red-theme');
+  } else {
+    lightbox.classList.add('green-theme');
+  }
+
+  document.getElementById('greenLightboxImg').src = card.dataset.image || '';
+  document.getElementById('greenLightboxTitle').textContent = card.dataset.title || '';
+  document.getElementById('greenLightboxLabels').textContent = card.dataset.labels || '';
+
+  lightbox.classList.add('active');
+});
+
+    document.querySelector('.green-lightbox-close').addEventListener('click', () => {
+      document.getElementById('greenLightbox').classList.remove('active');
+    });
+
+    document.getElementById('greenLightbox').addEventListener('click', e => {
+      if (e.target.id === 'greenLightbox') {
+        e.target.classList.remove('active');
+      }
+    });
+  </script>
+  <script>
+  document.querySelectorAll('.sop-toggle').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const item = toggle.closest('.sop-item');
+      item.classList.toggle('active');
+    });
+  });
+</script>
+
+<!-- PAGE TRANSITION -->
+<style>
+/* ===== PAGE TRANSITION OVERLAY ===== */
+#page-transition{
+  position:fixed;
+  inset:0;
+  background:#05070d;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .4s ease;
+  overflow:hidden;
+}
+
+/* ACTIVE STATE */
+#page-transition.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* LOGO */
+.transition-logo{
+  width:190px;
+  z-index:3;
+  animation:pulseGlow 1.8s infinite ease-in-out;
+}
+
+/* ===== TROPICAL WAVES ===== */
+.wave{
+  position:absolute;
+  width:200%;
+  height:200%;
+  top:-50%;
+  left:-50%;
+  background:
+    radial-gradient(circle at 30% 50%, rgba(56,189,248,.35), transparent 60%),
+    radial-gradient(circle at 70% 55%, rgba(255,79,216,.35), transparent 60%),
+    radial-gradient(circle at 50% 60%, rgba(168,85,247,.3), transparent 65%);
+  filter:blur(45px);
+  animation:waveMove 4.5s linear infinite;
+  opacity:.9;
+}
+
+.wave.wave2{
+  animation-duration:6.5s;
+  animation-direction:reverse;
+  opacity:.6;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes waveMove{
+  0%{
+    transform:translateX(0) translateY(0) rotate(0deg);
+  }
+  50%{
+    transform:translateX(-8%) translateY(6%) rotate(180deg);
+  }
+  100%{
+    transform:translateX(0) translateY(0) rotate(360deg);
+  }
+}
+
+@keyframes pulseGlow{
+  0%,100%{
+    filter:
+      drop-shadow(0 0 20px rgba(255,79,216,.75))
+      drop-shadow(0 0 40px rgba(56,189,248,.6));
+    transform:scale(1);
+  }
+  50%{
+    filter:
+      drop-shadow(0 0 36px rgba(255,79,216,1))
+      drop-shadow(0 0 70px rgba(168,85,247,.9));
+    transform:scale(1.06);
+  }
+}
+</style>
+
+<!-- TRANSITION HTML -->
+<div id="page-transition">
+  <div class="wave"></div>
+  <div class="wave wave2"></div>
+
+  <img
+    src="./assets/pauhana-logo.png"
+    alt="PAU HANA RP"
+    class="transition-logo"
+  />
+</div>
+<!-- PAGE TRANSITION -->
+<style>
+/* ===== PAGE TRANSITION OVERLAY ===== */
+#page-transition{
+  position:fixed;
+  inset:0;
+  background:#05070d;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .4s ease;
+  overflow:hidden;
+}
+
+/* ACTIVE STATE */
+#page-transition.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* LOGO */
+.transition-logo{
+  width:190px;
+  z-index:3;
+  animation:pulseGlow 1.8s infinite ease-in-out;
+}
+
+/* ===== TROPICAL WAVES ===== */
+.wave{
+  position:absolute;
+  width:200%;
+  height:200%;
+  top:-50%;
+  left:-50%;
+  background:
+    radial-gradient(circle at 30% 50%, rgba(56,189,248,.35), transparent 60%),
+    radial-gradient(circle at 70% 55%, rgba(255,79,216,.35), transparent 60%),
+    radial-gradient(circle at 50% 60%, rgba(168,85,247,.3), transparent 65%);
+  filter:blur(45px);
+  animation:waveMove 4.5s linear infinite;
+  opacity:.9;
+}
+
+.wave.wave2{
+  animation-duration:6.5s;
+  animation-direction:reverse;
+  opacity:.6;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes waveMove{
+  0%{
+    transform:translateX(0) translateY(0) rotate(0deg);
+  }
+  50%{
+    transform:translateX(-8%) translateY(6%) rotate(180deg);
+  }
+  100%{
+    transform:translateX(0) translateY(0) rotate(360deg);
+  }
+}
+
+@keyframes pulseGlow{
+  0%,100%{
+    filter:
+      drop-shadow(0 0 20px rgba(255,79,216,.75))
+      drop-shadow(0 0 40px rgba(56,189,248,.6));
+    transform:scale(1);
+  }
+  50%{
+    filter:
+      drop-shadow(0 0 36px rgba(255,79,216,1))
+      drop-shadow(0 0 70px rgba(168,85,247,.9));
+    transform:scale(1.06);
+  }
+}
+</style>
+
+<!-- TRANSITION HTML -->
+<div id="page-transition">
+  <div class="wave"></div>
+  <div class="wave wave2"></div>
+
+  <img
+    src="./assets/pauhana-logo.png"
+    alt="PAU HANA RP"
+    class="transition-logo"
+  />
+</div>
+
+<script>
+/* ===== PAGE TRANSITION LOGIC ===== */
+const transition = document.getElementById("page-transition");
+
+document.querySelectorAll("a[href]").forEach(link => {
+  if (
+    link.target === "_blank" ||
+    link.href.includes("#") ||
+    link.href.startsWith("javascript")
+  ) return;
+
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    const url = link.href;
+
+    transition.classList.add("active");
+
+    setTimeout(() => {
+      window.location.href = url;
+    }, 520);
+  });
+});
+
+/* REMOVE TRANSITION AFTER LOAD */
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    transition.classList.remove("active");
+  }, 320);
+});
+</script>
+</body>
+</html>
